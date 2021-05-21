@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace TopCV.Core.Repository
+namespace BookStore.Core.Repository
 {
-	public interface IRepository<T>
+	public interface IRepository
 	{
 		Task Commit();
 	}

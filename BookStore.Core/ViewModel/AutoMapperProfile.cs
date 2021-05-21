@@ -10,6 +10,11 @@ namespace BookStore.Core.ViewModel
 			CreateMap<Book, BookViewModel>();
 			CreateMap<Author, AuthorViewModel>();
 			CreateMap<BookViewModel, Book>();
+			CreateMap<User, UserViewModel>();
+			CreateMap<FavoriteBook, FavoriteViewModel>();
+			CreateMap<BooksInCart, BooksInCartViewModel>();
+			CreateMap<Order, OrderViewModel>();
+
 		}
 	}
 }

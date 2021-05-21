@@ -1,11 +1,10 @@
 ﻿using BookStore.Core.Entity;
 using BookStore.Core.Shared;
 using System.Threading.Tasks;
-using TopCV.Core.Repository;
 
 namespace BookStore.Core.Repository
 {
-	public interface IAuthorReponsitory: IRepository<Author>
+	public interface IAuthorReponsitory: IRepository
 	{
 		Task<ListItemResponse<Author>> Get();
 		Task Add(Author autor);

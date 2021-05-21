@@ -27,7 +27,6 @@ C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.IdentityMo
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -76,3 +75,6 @@ C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.AspNet.Ide
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\BookStore.Application.dll
+C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\BookStore.Application.pdb

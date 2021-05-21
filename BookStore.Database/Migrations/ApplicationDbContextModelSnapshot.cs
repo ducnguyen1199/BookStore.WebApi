@@ -105,6 +105,9 @@ namespace BookStore.Database.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdBook");
@@ -139,6 +142,9 @@ namespace BookStore.Database.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Subtotal")
                         .HasColumnType("int");
 
                     b.HasKey("IdBook", "IdOrder");
@@ -463,15 +469,13 @@ namespace BookStore.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookStore.Core.Entity.User", "User")
+                    b.HasOne("BookStore.Core.Entity.User", null)
                         .WithMany("FavoriteBooks")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BookStore.Core.Entity.Order", b =>

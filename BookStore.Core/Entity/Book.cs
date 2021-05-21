@@ -25,6 +25,7 @@ namespace BookStore.Core.Entity
 		public int IdCategory { get; set; }
 		[ForeignKey(nameof(IdCategory))]
 		public virtual Category Category { get; set; }
+
 		[Required]
 		public int IdAuthor { get; set; }
 		[ForeignKey(nameof(IdAuthor))]

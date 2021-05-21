@@ -12,12 +12,14 @@ namespace BookStore.Core.Entity
 		public int Quantity { get; set; }
 		[Required]
 		public DateTime DateUpdated { get; set; }
-
+		[Required]
+		public double SubTotal { get; set; }
 
 		[Required]
 		public int IdBook { get; set; }
 		[ForeignKey(nameof(IdBook))]
 		public virtual Book Book { get; set; }
+
 		[Required]
 		public int IdUser { get; set; }
 		[ForeignKey(nameof(IdUser))]

@@ -7,12 +7,14 @@ namespace BookStore.Core.Entity
 	{
 		[Key]
 		public int Id { get; set; }
+
 		[Required]
 		public int IdUser { get; set; }
-		[ForeignKey(nameof(IdUser))]
-		public virtual User User { get; set; }
+
+		//[ForeignKey(nameof(IdUser))]
 		[Required]
 		public int IdBook { get; set; }
+
 		[ForeignKey(nameof(IdBook))]
 		public virtual Book Book { get; set; }
 	}

@@ -1,6 +1,7 @@
 ﻿using BookStore.Core.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BookStore.Database
 {
@@ -9,6 +10,17 @@ namespace BookStore.Database
 		public ApplicationDbContext(DbContextOptions options)
 			: base(options)
 		{ }
+
+		/*public ApplicationDbContext():base()
+		{
+
+		}
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+			=> optionsBuilder
+			.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStore;integrated security=true;Trusted_Connection=True")
+			.LogTo(Console.WriteLine);*/
+
 		public DbSet<Author> Authors { get; set; }
 		public DbSet<Book> Books { get; set; }
 		public DbSet<Category> Categories { get; set; }
@@ -33,14 +45,14 @@ namespace BookStore.Database
 				.HasForeignKey(b => b.IdCategory)
 				.IsRequired();
 			modelBuilder.Entity<Book>()
-				.HasMany(b => b.FavoriteBooks)
-				.WithOne(f=>f.Book)
-				.HasForeignKey(f => f.IdBook)
-				.IsRequired();
-			modelBuilder.Entity<Book>()
 				.Property(b => b.DateCreated)
 				.HasDefaultValueSql("getDate()");
 
+			modelBuilder.Entity<FavoriteBook>()
+				.HasOne(fb => fb.Book)
+				.WithMany(b => b.FavoriteBooks)
+				.HasForeignKey(fb => fb.IdBook)
+				.IsRequired();
 
 			modelBuilder.Entity<BooksInCart>()
 				.HasOne(b => b.Book)
@@ -75,6 +87,13 @@ namespace BookStore.Database
 				.WithOne()
 				.HasForeignKey(ur => ur.UserId)
 				.IsRequired();
+
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.FavoriteBooks)
+				.WithOne()
+				.HasForeignKey(fb => fb.IdUser)
+				.IsRequired();
+
 		}
 
 	}

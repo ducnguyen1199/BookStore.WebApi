@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Core.ViewModel
+namespace BookStore.Core.Enum
 {
-	interface Interface1
-	{
-	}
+	public enum DetailType{ById, Like, BooksIntoCart, BooksIntoOrder}
 }
+

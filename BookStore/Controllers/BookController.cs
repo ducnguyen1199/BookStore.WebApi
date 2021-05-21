@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.Application.IService;
 using BookStore.Core.Entity;
 using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
@@ -17,30 +18,17 @@ namespace BookStore.Controllers
 	{
 		private readonly IBookReponsitory _bookReponsitory;
 		private readonly IMapper _mapper;
-		public BookController(IBookReponsitory bookReponsitory, IMapper mapper)
+		private readonly IBookService _bookService;
+		public BookController(IBookReponsitory bookReponsitory, IMapper mapper, IBookService bookService)
 		{
 			_bookReponsitory = bookReponsitory;
 			_mapper = mapper;
+			_bookService = bookService;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Get(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int Skip, int Offset)
 		{
-			BookFilterModel filter = new BookFilterModel
-			{
-				KeyWord = KeyWord,
-				IdCategory = IdCategory,
-				IdAuthor = IdAuthor,
-				OrderBy = (TypeOrderBy?)OrderBy,
-				Skip = Skip,
-				Offset = Offset
-			};
-			ListItemResponse<Book> books = await _bookReponsitory.Get(filter);
-
-			return Ok(new ListItemResponse<BookViewModel>
-			{
-				Data = books.Data.Select(u => _mapper.Map<BookViewModel>(u)),
-				Count = books.Count
-			});
+			return Ok(await _bookService.GetAll(KeyWord, IdCategory, IdAuthor, OrderBy, Skip, Offset));
 		}
 	
 	

@@ -1635,6 +1635,19 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "BookStore.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "BookStore.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BookStore.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookStore.Application.dll": {}
+        }
+      },
       "BookStore.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -6114,6 +6127,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "BookStore.Application/1.0.0": {
+      "type": "project",
+      "path": "../BookStore.Application/BookStore.Application.csproj",
+      "msbuildProject": "../BookStore.Application/BookStore.Application.csproj"
+    },
     "BookStore.Core/1.0.0": {
       "type": "project",
       "path": "../BookStore.Core/BookStore.Core.csproj",
@@ -6122,6 +6140,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BookStore.Application >= 1.0.0",
       "BookStore.Core >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.6",
       "Microsoft.EntityFrameworkCore >= 5.0.6",
@@ -6156,6 +6175,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore.Application\\BookStore.Application.csproj": {
+              "projectPath": "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore.Application\\BookStore.Application.csproj"
+            },
             "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore.Core\\BookStore.Core.csproj": {
               "projectPath": "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore.Core\\BookStore.Core.csproj"
             }

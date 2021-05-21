@@ -16,3 +16,5 @@ C:\Users\ncduc\Desktop\BookStore\BookStore.Database\obj\Debug\net5.0\BookStore.D
 C:\Users\ncduc\Desktop\BookStore\BookStore.Database\obj\Debug\net5.0\ref\BookStore.Database.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore.Database\obj\Debug\net5.0\BookStore.Database.pdb
 C:\Users\ncduc\Desktop\BookStore\BookStore.Database\obj\Debug\net5.0\BookStore.Database.genruntimeconfig.cache
+C:\Users\ncduc\Desktop\BookStore\BookStore.Database\bin\Debug\net5.0\BookStore.Application.dll
+C:\Users\ncduc\Desktop\BookStore\BookStore.Database\bin\Debug\net5.0\BookStore.Application.pdb
