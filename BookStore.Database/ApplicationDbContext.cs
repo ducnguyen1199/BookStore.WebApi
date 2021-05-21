@@ -44,6 +44,7 @@ namespace BookStore.Database
 				.WithMany()
 				.HasForeignKey(b => b.IdCategory)
 				.IsRequired();
+
 			modelBuilder.Entity<Book>()
 				.Property(b => b.DateCreated)
 				.HasDefaultValueSql("getDate()");
@@ -63,12 +64,16 @@ namespace BookStore.Database
 				.Property(b => b.DateUpdated)
 				.HasDefaultValueSql("getDate()");
 
+			modelBuilder.Entity<Order>()
+				.Property(o => o.DateCreated)
+				.HasDefaultValueSql("getDate()");
 
 			modelBuilder.Entity<Order>()
 				.HasMany(o => o.DetailOrders)
 				.WithOne(dor => dor.Order)
 				.HasForeignKey(dor => dor.IdOrder)
 				.IsRequired();
+			
 
 
 			modelBuilder.Entity<DetailOrder>()

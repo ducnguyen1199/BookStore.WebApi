@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStore.Core.Entity;
+using System.Collections.Generic;
 
 namespace BookStore.Core.ViewModel
 {
@@ -14,7 +15,7 @@ namespace BookStore.Core.ViewModel
 			CreateMap<FavoriteBook, FavoriteViewModel>();
 			CreateMap<BooksInCart, BooksInCartViewModel>();
 			CreateMap<Order, OrderViewModel>();
-
+			CreateMap<DetailOrder, DetailOrderViewModel > ();
 		}
 	}
 }

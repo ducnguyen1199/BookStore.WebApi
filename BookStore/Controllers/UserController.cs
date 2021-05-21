@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using BookStore.Application.IService;
 using BookStore.Core.FilterModel;
+using System.Collections.Generic;
 
 namespace BookStore.Controllers
 {
-	[Route("[Controller]")]
+	[Route("api/[Controller]")]
 	[ApiController]
 	public class UserController: ControllerBase
 	{
@@ -67,10 +68,10 @@ namespace BookStore.Controllers
 			await _userService.AddBookIntoCart(fitler);
 			return Ok();
 		}
-		[HttpDelete("DeleteBookFromCart/{id}")]
-		public async Task<IActionResult> DeleteBookIntoCart(int id)
+		[HttpDelete("DeleteBookFromCart")]
+		public async Task<IActionResult> DeleteBookIntoCart([FromBody] List<int> arr)
 		{
-			await _userService.DeleteBookFromCart(id);
+			await _userService.DeleteBookFromCart(arr);
 			return Ok();
 		}
 	}

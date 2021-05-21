@@ -35,9 +35,11 @@ namespace BookStore
 			services.AddScoped<IAuthorReponsitory, AuthorReponsitory>();
 			services.AddScoped<ICategoryReponsitory, CategoryReponsitory>();
 			services.AddScoped<IUserReponsitory, UserReponsitory>();
+			services.AddScoped<IOrderReponsitory, OrderResponsitory>();
 
 			services.AddScoped<IBookService, BookService>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IOrderService, OrderService>();
 
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("Default")));

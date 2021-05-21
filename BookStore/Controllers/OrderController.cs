@@ -3,15 +3,12 @@ using BookStore.Application.IService;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class OrderController : ControllerBase
 	{
 		private readonly IOrderReponsitory _orderReponsitory;
@@ -28,10 +25,22 @@ namespace BookStore.Controllers
 		{
 			return Ok(await _orderService.GetListOrder());
 		}
-		[HttpPost]
-		public async Task<IActionResult> AddOrder([FromBody] OrderFilterModel filter)
+		[HttpGet("{idUser}")]
+		public async Task<IActionResult> GetBooksInOrder(int idUser)
 		{
-			await _orderService.AddOrder(filter);
+			var books = await _orderService.GetBooksInOrder(idUser);
+			return Ok(books);
+		}
+		[HttpPost]
+		public async Task<IActionResult> AddBooksIntoOrder([FromBody] OrderFilterModel filter)
+		{
+			await _orderService.AddBooksIntoOrder(filter);
+			return Ok();
+		}
+		[HttpDelete("{idOrder}")]
+		public async Task<IActionResult> Delete(int idOrder)
+		{
+			await _orderService.Delete(idOrder);
 			return Ok();
 		}
 	}

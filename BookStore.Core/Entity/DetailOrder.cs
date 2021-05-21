@@ -18,6 +18,6 @@ namespace BookStore.Core.Entity
 		[Required]
 		public int Quantity { get; set; }
 		[Required]
-		public int Subtotal { get; set; }
+		public double Subtotal { get; set; }
 	}
 }

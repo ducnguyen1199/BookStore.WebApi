@@ -65,9 +65,9 @@ namespace BookStore.Application.Service
 			await _userReponsitory.AddBookIntoCart(filter);
 			await _userReponsitory.Commit();
 		}
-		public async Task DeleteBookFromCart(int id)
+		public async Task DeleteBookFromCart(List<int> arr)
 		{
-			await _userReponsitory.DeleteBookFromCart(id);
+			await _userReponsitory.DeleteBookFromCart(arr);
 			await _userReponsitory.Commit();
 		}
 	}

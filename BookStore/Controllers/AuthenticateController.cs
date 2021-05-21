@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class AuthenticateController : ControllerBase
 	{
@@ -78,7 +78,7 @@ namespace BookStore.Controllers
 				await _roleManager.CreateAsync(new Role(RoleType.Customer));
 
 			await _userManager.AddToRoleAsync(user, RoleType.Customer);
-			return Ok(new { Success = true, Message = "User created successfully!" });
+			return Ok();
 		}
 
 		[HttpPost("login")]
@@ -110,7 +110,6 @@ namespace BookStore.Controllers
 				);
 				return Ok(new
 				{
-					success = true,
 					token = new JwtSecurityTokenHandler().WriteToken(token),
 					expiration = token.ValidTo,
 					user = _mapper.Map<UserViewModel>(user)

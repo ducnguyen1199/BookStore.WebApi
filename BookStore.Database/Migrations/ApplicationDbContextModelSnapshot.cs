@@ -144,8 +144,8 @@ namespace BookStore.Database.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Subtotal")
-                        .HasColumnType("int");
+                    b.Property<double>("Subtotal")
+                        .HasColumnType("float");
 
                     b.HasKey("IdBook", "IdOrder");
 
@@ -188,7 +188,9 @@ namespace BookStore.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getDate()");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");

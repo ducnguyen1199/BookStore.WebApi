@@ -44,6 +44,9 @@ namespace BookStore.Database.Reponsitory
 				case DetailType.BooksIntoCart:
 					users = users.Include(u => u.BooksInCarts).ThenInclude(b => b.Book);
 					break;
+				case DetailType.BooksIntoOrder:
+					users = users.Include(u => u.Orders).ThenInclude(o => o.DetailOrders).ThenInclude(b => b.Book);
+					break;
 				default:
 					break;
 			}
@@ -73,9 +76,20 @@ namespace BookStore.Database.Reponsitory
 
 			await _context.BooksInCarts.AddAsync(booksInCart);
 		}
-		public async Task DeleteBookFromCart(int id) {
-			BooksInCart booksInCart = await _context.BooksInCarts.FindAsync(id);
-			_context.BooksInCarts.Remove(booksInCart); 
+		public async Task DeleteBookFromCart(List<int> arr) {
+			//var books = await _context.BooksInCarts.Where(b => b.Id.);
+			var books = await _context.BooksInCarts.Where(b => arr.Any(id => b.Id == id)).ToListAsync();
+			_context.BooksInCarts.RemoveRange(books);
+
+			//foreach(int id in arr)
+			//{
+			//	var bookInCard = new BooksInCart()
+			//	{
+			//		Id = id
+			//	};
+			//	_context.Entry(bookInCard).State = EntityState.Deleted;
+			//}
 		}
+	
 	}
 }

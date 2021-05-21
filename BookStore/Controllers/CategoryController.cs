@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BookStore.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class CategoryController : ControllerBase
 	{
 		private readonly ICategoryReponsitory _categoryReponsitory;

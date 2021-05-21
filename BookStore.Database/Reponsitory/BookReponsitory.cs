@@ -22,7 +22,7 @@ namespace BookStore.Database.Reponsitory
 		public async Task Delete(int id)=> _context.Books.Remove(await _context.Books.FindAsync(id));
 		public async Task<ListItemResponse<Book>> Get(BookFilterModel filter)
 		{
-			IQueryable<Book> books = _context.Books;
+			IQueryable<Book> books = _context.Books.Include(b=>b.Category).Include(b=>b.Author);
 
 			if (!string.IsNullOrWhiteSpace(filter.KeyWord))
 			{
@@ -57,7 +57,16 @@ namespace BookStore.Database.Reponsitory
 						break;
 				}
 			}
-
+			
+			if(filter.Skip == -1 && filter.Offset == -1)
+			{
+				return new ListItemResponse<Book>
+				{
+					Data = await books.ToListAsync(),
+					Count = await books.CountAsync()
+				};
+			}
+			
 			return new ListItemResponse<Book>
 			{
 				Data = await books.Skip((filter.Skip - 1) * filter.Offset).Take(filter.Offset).ToListAsync(),

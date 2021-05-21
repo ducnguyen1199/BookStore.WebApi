@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace BookStore.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class BookController : ControllerBase
 	{
 		private readonly IBookReponsitory _bookReponsitory;
@@ -26,9 +26,14 @@ namespace BookStore.Controllers
 			_bookService = bookService;
 		}
 		[HttpGet]
-		public async Task<IActionResult> Get(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int Skip, int Offset)
+		public async Task<IActionResult> Get(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int? Skip, int? Offset)
 		{
-			return Ok(await _bookService.GetAll(KeyWord, IdCategory, IdAuthor, OrderBy, Skip, Offset));
+			if (Skip == null || Offset == null) {
+
+				Skip = -1;
+				Offset = -1;
+			}
+			return Ok(await _bookService.GetAll(KeyWord, IdCategory, IdAuthor, OrderBy, (int)Skip, (int)Offset));
 		}
 	
 	

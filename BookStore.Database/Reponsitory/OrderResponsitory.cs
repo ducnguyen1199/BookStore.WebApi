@@ -2,6 +2,7 @@
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,7 +26,14 @@ namespace BookStore.Database.Reponsitory
 				Count = await orders.CountAsync()
 			};
 		}
-
-		
+		public async Task AddBooksIntoOrder(List<DetailOrder> detailOrders)
+		{
+			await _context.DetailOrders.AddRangeAsync(detailOrders);
+		}
+		public async Task Delete(int id)
+		{
+			Order order = await _context.Orders.FindAsync(id);
+			_context.Orders.Remove(order);
+		}
 	}
 }
