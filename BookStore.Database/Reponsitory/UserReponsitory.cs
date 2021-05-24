@@ -3,7 +3,10 @@ using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
+using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,6 +55,20 @@ namespace BookStore.Database.Reponsitory
 			}
 			return await users.FirstOrDefaultAsync(u => u.Id == id);
 		}
+		public async Task<User> UpdateInfoUser(UserUpdateModel filter)
+		{
+			User user = await _context.Users.FindAsync(filter.Id);
+			user.Email = filter.Email;
+			user.BirthDay = filter.BirthDay;
+			user.FullName = filter.FullName;
+			user.PhoneNumber = filter.PhoneNumber;
+			return user;
+		}
+		public async Task UpdatePassword(int id, string newPasswordHash)
+		{
+			User user = await _context.Users.FindAsync(id);
+			user.PasswordHash = newPasswordHash;
+		}
 		public async Task Like(int idUser, int idBook)
 		{
 			FavoriteBook fb = new FavoriteBook();
@@ -90,6 +107,13 @@ namespace BookStore.Database.Reponsitory
 			//	_context.Entry(bookInCard).State = EntityState.Deleted;
 			//}
 		}
-	
+		public async Task<BooksInCart> UpdateBookInCart(int id, int quantity)
+		{
+			BooksInCart booksInCart = await _context.BooksInCarts.Include(b => b.Book).FirstOrDefaultAsync(b => b.Id == id);
+			booksInCart.Quantity = quantity;
+			booksInCart.SubTotal = booksInCart.Book.Price * quantity;
+			booksInCart.DateUpdated = DateTime.Now;
+			return booksInCart;
+		}
 	}
 }

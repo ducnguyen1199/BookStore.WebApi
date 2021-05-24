@@ -9,6 +9,7 @@ using System.Linq;
 using BookStore.Application.IService;
 using BookStore.Core.FilterModel;
 using System.Collections.Generic;
+using BookStore.Core.UpdateModel;
 
 namespace BookStore.Controllers
 {
@@ -36,7 +37,12 @@ namespace BookStore.Controllers
 			var user = await _userService.GetById(idUser);
 			return Ok(user);
 		}
-
+		[HttpPut("UpdateInfoUser")]
+		public async Task<IActionResult> UpdateInfoUser([FromBody] UserUpdateModel filter)
+		{
+			var user = await _userService.UpdateInfoUser(filter);
+			return Ok(user);
+		}
 		[HttpGet("Like/{idUser}")]
 		public async Task<IActionResult> GetBookLiked(int idUser)
 		{
@@ -73,6 +79,11 @@ namespace BookStore.Controllers
 		{
 			await _userService.DeleteBookFromCart(arr);
 			return Ok();
+		}
+		[HttpPut("UpdateBookInCart/{id}")]
+		public async Task<IActionResult> UpdateBookInCart(int id, int quantity)
+		{
+			return Ok(await _userService.UpdateBookInCart(id, quantity));
 		}
 	}
 }

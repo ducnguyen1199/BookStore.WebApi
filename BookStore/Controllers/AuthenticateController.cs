@@ -3,6 +3,7 @@ using BookStore.Core.Entity;
 using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
+using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -114,6 +115,20 @@ namespace BookStore.Controllers
 					expiration = token.ValidTo,
 					user = _mapper.Map<UserViewModel>(user)
 				});
+			}
+			return Unauthorized(new { Success = false, Message = "UserName or Password is not match" });
+		}
+		[HttpPut("changePassword")]
+		public async Task<IActionResult> changePassword([FromBody] PasswordUpdateModel filter)
+		{
+			User user = await _userReponsitory.GetByUserName(filter.UserName);
+			if (user != null)
+			{
+				if (!await _userManager.CheckPasswordAsync(user, filter.CurrentPassword)) return Unauthorized(new { Success = false, Message = "UserName or Current Password is not match" });
+
+				await _userManager.ChangePasswordAsync(user,  filter.CurrentPassword, filter.NewPassword);
+
+				return Ok("Change Password success!");
 			}
 			return Unauthorized(new { Success = false, Message = "UserName or Password is not match" });
 		}

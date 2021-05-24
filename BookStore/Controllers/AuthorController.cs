@@ -46,5 +46,12 @@ namespace BookStore.Controllers
 			await _authorReponsitory.Commit();
 			return Ok();
 		}
+		[HttpPut]
+		public async Task<IActionResult> Update([FromBody]Author newAuthor)
+		{
+			await _authorReponsitory.Update(newAuthor);
+			await _authorReponsitory.Commit();
+			return Ok();
+		}
 	}
 }

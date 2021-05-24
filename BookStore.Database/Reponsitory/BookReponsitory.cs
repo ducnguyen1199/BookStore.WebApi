@@ -3,6 +3,8 @@ using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
+using BookStore.Core.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -72,6 +74,17 @@ namespace BookStore.Database.Reponsitory
 				Data = await books.Skip((filter.Skip - 1) * filter.Offset).Take(filter.Offset).ToListAsync(),
 				Count = await books.CountAsync()
 			};
+		}
+		public async Task<Book> GetDetail(int id) => await _context.Books.Include(b => b.Category).Include(b => b.Author).FirstOrDefaultAsync(b=>b.Id==id);
+		public async Task Update( BookUpdateModel data)
+		{
+			Book book = await _context.Books.FindAsync(data.Id);
+			book.IdAuthor = data.IdAuthor;
+			book.IdCategory = data.IdCategory;
+			book.Description = data.Description;
+			book.Price = data.Price;
+			book.Name = data.Name;
+			book.Image = data.Image;
 		}
 	}
 }

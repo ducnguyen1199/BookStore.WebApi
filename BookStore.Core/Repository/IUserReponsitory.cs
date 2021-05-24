@@ -2,6 +2,7 @@
 using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,10 +12,14 @@ namespace BookStore.Core.Repository
 	{
 		Task<ListItemResponse<User>> Get();
 		Task<User> GetByUserName(string username);
+		Task<User> GetDetail(int id, DetailType type);
+		Task<User> UpdateInfoUser(UserUpdateModel filter);
+		Task UpdatePassword(int id, string newHashPassword);
 		Task Like(int idUser, int idBook);
 		Task UnLike(int idUser, int idBook);
 		Task AddBookIntoCart(BookInCartFilterModel filter);
 		Task DeleteBookFromCart(List<int> arr);
-		Task<User> GetDetail(int id, DetailType type);
+		Task<BooksInCart> UpdateBookInCart(int id, int quantity);
+		
 	}
 }

@@ -5,6 +5,7 @@ using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,19 @@ namespace BookStore.Application.Service
 			_bookReponsitory = bookReponsitory;
 			_mapper = mapper;
 		}
+
+		public async Task Add(BookViewModel bookViewModel)
+		{
+			await _bookReponsitory.Add(_mapper.Map<Book>(bookViewModel));
+			await _bookReponsitory.Commit();
+		}
+
+		public async Task Delete(int id)
+		{
+			await _bookReponsitory.Delete(id);
+			await _bookReponsitory.Commit();
+		}
+
 		public async Task<ListItemResponse<BookViewModel>> GetAll(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int Skip, int Offset)
 		{
 			BookFilterModel filter = new BookFilterModel
@@ -37,6 +51,17 @@ namespace BookStore.Application.Service
 				Data = books.Data.Select(u => _mapper.Map<BookViewModel>(u)),
 				Count = books.Count
 			};
+		}
+		public async Task<BookViewModel> GetDetail(int id)
+		{
+			Book book = await _bookReponsitory.GetDetail(id);
+			return  _mapper.Map<BookViewModel>(book);
+		}
+
+		public async Task Update(BookUpdateModel data)
+		{
+			await _bookReponsitory.Update(data);
+			await _bookReponsitory.Commit();
 		}
 	}
 }

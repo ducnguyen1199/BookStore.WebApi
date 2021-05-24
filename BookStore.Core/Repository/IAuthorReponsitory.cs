@@ -1,5 +1,6 @@
 ﻿using BookStore.Core.Entity;
 using BookStore.Core.Shared;
+using BookStore.Core.ViewModel;
 using System.Threading.Tasks;
 
 namespace BookStore.Core.Repository
@@ -7,7 +8,8 @@ namespace BookStore.Core.Repository
 	public interface IAuthorReponsitory: IRepository
 	{
 		Task<ListItemResponse<Author>> Get();
-		Task Add(Author autor);
+		Task Add(Author author);
 		Task Delete(int id);
+		Task Update(Author author);
 	}
 }

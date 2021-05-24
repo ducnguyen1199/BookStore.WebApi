@@ -1,6 +1,7 @@
 ﻿using BookStore.Core.Entity;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
 using System.Threading.Tasks;
 
 namespace BookStore.Core.Repository
@@ -10,6 +11,7 @@ namespace BookStore.Core.Repository
 		Task Add(Book book);
 		Task Delete(int id);
 		Task<ListItemResponse<Book>> Get(BookFilterModel data );
-		
+		Task<Book> GetDetail(int idUser);
+		Task Update(BookUpdateModel data);
 	}
 }

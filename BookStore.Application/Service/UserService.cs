@@ -5,6 +5,7 @@ using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,12 @@ namespace BookStore.Application.Service
 			User user = await _userReponsitory.GetDetail(idUser, DetailType.ById);
 			return _mapper.Map<UserViewModel>(user);
 		}
-
+		public async Task<UserViewModel> UpdateInfoUser(UserUpdateModel filter)
+		{
+			User user = await _userReponsitory.UpdateInfoUser(filter);
+			await _userReponsitory.Commit();
+			return _mapper.Map<UserViewModel>(user);
+		}
 		public async Task Like(int idUser, int idBook)
 		{
 			await _userReponsitory.Like(idUser, idBook);
@@ -70,5 +76,15 @@ namespace BookStore.Application.Service
 			await _userReponsitory.DeleteBookFromCart(arr);
 			await _userReponsitory.Commit();
 		}
+
+		public async Task<BooksInCartViewModel> UpdateBookInCart(int id, int quantity)
+		{
+			BooksInCart booksInCart =await _userReponsitory.UpdateBookInCart(id, quantity);
+			await _userReponsitory.Commit();
+			return _mapper.Map<BooksInCartViewModel>(booksInCart);
+
+		}
+
+		
 	}
 }

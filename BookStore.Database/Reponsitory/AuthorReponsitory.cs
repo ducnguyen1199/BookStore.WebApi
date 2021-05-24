@@ -14,13 +14,9 @@ namespace BookStore.Database.Reponsitory
 		{
 			_context = context;
 		}
-
 		public async Task Commit() => await _context.SaveChangesAsync();
-
 		public async Task Add(Author author) => await _context.Authors.AddAsync(author);
-
 		public async Task Delete(int id) => _context.Authors.Remove(await _context.Authors.FindAsync(id));		
-
 		public async Task<ListItemResponse<Author>> Get()
 		{
 			IQueryable<Author> authors = _context.Authors;
@@ -29,6 +25,13 @@ namespace BookStore.Database.Reponsitory
 				Data = await authors.ToListAsync(),
 				Count = await authors.CountAsync()
 			};
+		}
+		public async Task Update(Author newAuthor)
+		{
+			Author author = await _context.Authors.FindAsync(newAuthor.Id);
+			author.Name = newAuthor.Name;
+			author.Story = newAuthor.Story;
+			author.BirthDay = newAuthor.BirthDay;
 		}
 	}
 }

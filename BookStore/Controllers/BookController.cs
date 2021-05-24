@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using BookStore.Application.IService;
-using BookStore.Core.Entity;
-using BookStore.Core.Enum;
-using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
-using BookStore.Core.Shared;
+using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
@@ -35,20 +31,27 @@ namespace BookStore.Controllers
 			}
 			return Ok(await _bookService.GetAll(KeyWord, IdCategory, IdAuthor, OrderBy, (int)Skip, (int)Offset));
 		}
-	
-	
+		[HttpGet("{idBook}")]
+		public async Task<IActionResult> GetDetail(int idBook)
+		{
+			return Ok(await _bookService.GetDetail(idBook));
+		}
 		[HttpPost]
 		public async Task<IActionResult> Add(BookViewModel bookViewModel)
 		{
-			await _bookReponsitory.Add(_mapper.Map<Book>(bookViewModel));
-			await _bookReponsitory.Commit();
+			await _bookService.Add(bookViewModel);
 			return Ok();
 		}
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)
 		{
-			await _bookReponsitory.Delete(id);
-			await _bookReponsitory.Commit();
+			await _bookService.Delete(id);
+			return Ok();
+		}
+		[HttpPut]
+		public async Task<IActionResult> Update(BookUpdateModel data)
+		{
+			await _bookService.Update(data);
 			return Ok();
 		}
 	}
