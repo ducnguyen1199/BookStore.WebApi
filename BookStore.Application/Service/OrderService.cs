@@ -24,14 +24,16 @@ namespace BookStore.Application.Service
 			_userReponsitory = userReponsitory;
 		}
 		
-		public async Task<int> AddOrder(OrderFilterModel filter)
+		public async Task<Order> AddOrder(OrderFilterModel filter)
 		{
 			Order order = new Order();
 			order.IdUser = filter.IdUser;
 			order.Address = filter.Address;
+			order.Discount = filter.Discount;
+			order.Surcharge = filter.Surcharge;
 			await _orderReponsitory.AddOrder(order);
 			await _orderReponsitory.Commit();
-			return order.Id;
+			return order;
 		}
 		public async Task<ListItemResponse<OrderViewModel>> GetListOrder()
 		{
@@ -44,25 +46,27 @@ namespace BookStore.Application.Service
 		}
 		public async Task AddBooksIntoOrder(OrderFilterModel filter)
 		{
-			int idOrder = await AddOrder(filter);
-
+			Order order = await AddOrder(filter);
 			User user = await _userReponsitory.GetDetail(filter.IdUser, DetailType.BooksIntoCart);
+
 			ICollection<BooksInCart> booksInCarts = user.BooksInCarts;
 			List<DetailOrder> detailOrders = new List<DetailOrder>();
 			List<int> idBookInCarts = new List<int>();
+			double subTotal = 0;
 			foreach (BooksInCart booksInCart in booksInCarts)
 			{
 				DetailOrder item = new DetailOrder()
 				{
-					IdOrder = idOrder,
+					IdOrder = order.Id,
 					IdBook = booksInCart.IdBook,
 					Quantity = booksInCart.Quantity,
 					Subtotal = booksInCart.SubTotal
 				};
+				subTotal += booksInCart.SubTotal;
 				detailOrders.Add(item);
 				idBookInCarts.Add(booksInCart.Id);
 			}
-
+			order.Total = subTotal * (1 - order.Surcharge) * (1 + order.Discount);
 			await _orderReponsitory.AddBooksIntoOrder(detailOrders);
 			await _userReponsitory.DeleteBookFromCart(idBookInCarts);
 			await _orderReponsitory.Commit();

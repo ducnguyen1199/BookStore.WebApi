@@ -9,3 +9,4 @@ C:\Users\ncduc\Desktop\BookStore\BookStore.Core\obj\Debug\net5.0\BookStore.Core.
 C:\Users\ncduc\Desktop\BookStore\BookStore.Core\obj\Debug\net5.0\BookStore.Core.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore.Core\obj\Debug\net5.0\ref\BookStore.Core.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore.Core\obj\Debug\net5.0\BookStore.Core.pdb
+C:\Users\ncduc\Desktop\BookStore\BookStore.Core\obj\Debug\net5.0\BookStore.Core.csprojAssemblyReference.cache

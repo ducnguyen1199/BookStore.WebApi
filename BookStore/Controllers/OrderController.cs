@@ -34,6 +34,8 @@ namespace BookStore.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddBooksIntoOrder([FromBody] OrderFilterModel filter)
 		{
+			if (filter.Discount <= 1 && filter.Discount >= 0) return BadRequest("0 <= Discount <= 1");
+			if (filter.Surcharge <= 1 && filter.Surcharge >= 0) return BadRequest("0 <= Surcharge <= 1");
 			await _orderService.AddBooksIntoOrder(filter);
 			return Ok();
 		}

@@ -11,6 +11,11 @@ namespace BookStore.Core.Entity
 		public int Id { get; set; }
 		[Required]
 		public string Address { get; set; }
+		public double Surcharge { get; set; }
+		public double Discount { get; set; }
+		[Required]
+		public double Total { get; set; }
+
 		[Required]
 		public DateTime DateCreated { get; set; }
 

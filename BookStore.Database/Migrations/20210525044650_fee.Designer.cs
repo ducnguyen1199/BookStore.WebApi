@@ -4,14 +4,16 @@ using BookStore.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210525044650_fee")]
+    partial class fee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,18 +140,10 @@ namespace BookStore.Database.Migrations
 
             modelBuilder.Entity("BookStore.Core.Entity.DetailOrder", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("IdBook")
                         .HasColumnType("int");
 
                     b.Property<int>("IdOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -158,13 +152,9 @@ namespace BookStore.Database.Migrations
                     b.Property<double>("Subtotal")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdBook");
+                    b.HasKey("IdBook", "IdOrder");
 
                     b.HasIndex("IdOrder");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("DetailOrders");
                 });
@@ -219,9 +209,6 @@ namespace BookStore.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("float")
                         .HasDefaultValue(0.0);
-
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -486,14 +473,10 @@ namespace BookStore.Database.Migrations
                         .IsRequired();
 
                     b.HasOne("BookStore.Core.Entity.Order", "Order")
-                        .WithMany()
+                        .WithMany("DetailOrders")
                         .HasForeignKey("IdOrder")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BookStore.Core.Entity.Order", null)
-                        .WithMany("DetailOrders")
-                        .HasForeignKey("OrderId");
 
                     b.Navigation("Book");
 

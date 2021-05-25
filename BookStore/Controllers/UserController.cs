@@ -9,6 +9,8 @@ using BookStore.Core.UpdateModel;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using BookStore.Core.ViewModel;
+using System.Linq;
 
 namespace BookStore.Controllers
 {
@@ -73,8 +75,12 @@ namespace BookStore.Controllers
 		[HttpGet("BooksInCart/{idUser}")]
 		public async Task<IActionResult> GetBooksInCart(int idUser)
 		{
-			var bookTest = await _userService.GetBookInCart(idUser);
-			return Ok(bookTest);
+			var books = await _userService.GetBookInCart(idUser);
+			return Ok(new
+			{
+				data = books,
+				subtotal = books.Sum(b => b.SubTotal)
+			});
 		}
 		[HttpPost("AddBookIntoCart")]
 		public async Task<IActionResult> AddBookIntoCart(BookInCartFilterModel fitler)
@@ -82,12 +88,18 @@ namespace BookStore.Controllers
 			await _userService.AddBookIntoCart(fitler);
 			return Ok();
 		}
-		[HttpDelete("DeleteBookFromCart")]
-		public async Task<IActionResult> DeleteBookIntoCart([FromBody] List<int> arr)
+		[HttpDelete("DeleteBookFromCart/{id}")]
+		public async Task<IActionResult> DeleteBookIntoCart(int id)
 		{
-			await _userService.DeleteBookFromCart(arr);
+			await _userService.DeleteBookFromCart(new List<int>() { id });
 			return Ok();
 		}
+		//[HttpDelete("DeleteBookFromCart")]
+		//public async Task<IActionResult> DeleteBookIntoCart([FromBody] List<int> arr)
+		//{
+		//	await _userService.DeleteBookFromCart(arr);
+		//	return Ok();
+		//}
 		[HttpPut("UpdateBookInCart/{id}")]
 		public async Task<IActionResult> UpdateBookInCart(int id, int quantity)
 		{

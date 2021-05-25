@@ -5,6 +5,8 @@ namespace BookStore.Core.Entity
 {
 	public class DetailOrder
 	{
+		[Key]
+		public int Id { get; set; }
 		[Required]
 		public int IdOrder { get; set; }
 		[ForeignKey(nameof(IdOrder))]

@@ -7,6 +7,7 @@ namespace BookStore.Core.Repository
 {
 	public interface IOrderReponsitory: IRepository
 	{
+		Task<Order> GetById(int id);
 		Task AddOrder(Order order);
 		Task<ListItemResponse<Order>> GetListOrder();
 		Task AddBooksIntoOrder(List<DetailOrder> detailOrders);

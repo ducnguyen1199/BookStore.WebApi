@@ -10,6 +10,9 @@ namespace BookStore.Core.ViewModel
 		public string Address { get; set; }
 		public DateTime DateCreated { get; set; }
 		public int IdUser { get; set; }
+		public double Surcharge { get; set; }
+		public double Discount { get; set; }
+		public double Total { get; set; }
 		public virtual ICollection<DetailOrderViewModel> DetailOrders { get; } = new List<DetailOrderViewModel>();
 	}
 }

@@ -7,6 +7,8 @@ namespace BookStore.Database
 {
 	public class ApplicationDbContext : IdentityDbContext<User, Role, int>
 	{
+		private const double defaultNumber = 0;
+
 		public ApplicationDbContext(DbContextOptions options)
 			: base(options)
 		{ }
@@ -38,7 +40,6 @@ namespace BookStore.Database
 				.HasForeignKey(b => b.IdAuthor)
 				.IsRequired();
 
-
 			modelBuilder.Entity<Book>()
 				.HasOne(b => b.Category)
 				.WithMany()
@@ -67,18 +68,29 @@ namespace BookStore.Database
 			modelBuilder.Entity<Order>()
 				.Property(o => o.DateCreated)
 				.HasDefaultValueSql("getDate()");
+			modelBuilder.Entity<Order>()
+				.Property(o => o.Discount)
+				.HasDefaultValue(0);
+			modelBuilder.Entity<Order>()
+				.Property(o => o.Surcharge)
+				.HasDefaultValue(0);
 
 			modelBuilder.Entity<Order>()
 				.HasMany(o => o.DetailOrders)
 				.WithOne(dor => dor.Order)
 				.HasForeignKey(dor => dor.IdOrder)
 				.IsRequired();
-			
-
 
 			modelBuilder.Entity<DetailOrder>()
-				.HasKey(d => new { d.IdBook, d.IdOrder });
-
+				.HasOne(o => o.Book)
+				.WithMany()
+				.HasForeignKey(b => b.IdBook)
+				.IsRequired();
+			modelBuilder.Entity<DetailOrder>()
+				.HasOne(o => o.Order)
+				.WithMany()
+				.HasForeignKey(od => od.IdOrder)
+				.IsRequired();
 
 			modelBuilder.Entity<Role>()
 				.HasMany(r => r.UserRoles)
@@ -101,7 +113,7 @@ namespace BookStore.Database
 				.WithOne()
 				.HasForeignKey(fb => fb.IdUser)
 				.IsRequired();
-
+			
 		}
 
 	}

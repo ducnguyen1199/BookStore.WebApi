@@ -83,7 +83,6 @@ namespace BookStore.Application.Service
 			await _userReponsitory.DeleteBookFromCart(arr);
 			await _userReponsitory.Commit();
 		}
-
 		public async Task<BooksInCartViewModel> UpdateBookInCart(int id, int quantity)
 		{
 			BooksInCart booksInCart =await _userReponsitory.UpdateBookInCart(id, quantity);
@@ -91,7 +90,5 @@ namespace BookStore.Application.Service
 			return _mapper.Map<BooksInCartViewModel>(booksInCart);
 
 		}
-
-		
 	}
 }

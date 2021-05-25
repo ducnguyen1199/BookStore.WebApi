@@ -4,7 +4,6 @@ using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
 using BookStore.Core.UpdateModel;
-using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -42,13 +41,16 @@ namespace BookStore.Database.Reponsitory
 			switch (type)
 			{
 				case DetailType.Like:
-					users = users.Include(u => u.FavoriteBooks).ThenInclude(fb => fb.Book);
+					users = users.Include(u => u.FavoriteBooks).ThenInclude(fb => fb.Book.Author)
+						.Include(u => u.FavoriteBooks).ThenInclude(fb => fb.Book.Category);
 					break;
 				case DetailType.BooksIntoCart:
-					users = users.Include(u => u.BooksInCarts).ThenInclude(b => b.Book);
+					users = users.Include(u => u.BooksInCarts).ThenInclude(fb => fb.Book.Author)
+						.Include(u => u.FavoriteBooks).ThenInclude(fb => fb.Book.Category);
 					break;
 				case DetailType.BooksIntoOrder:
-					users = users.Include(u => u.Orders).ThenInclude(o => o.DetailOrders).ThenInclude(b => b.Book);
+					users = users.Include(u => u.Orders).ThenInclude(o => o.DetailOrders).ThenInclude(fb => fb.Book.Author)
+						.Include(u => u.FavoriteBooks).ThenInclude(fb => fb.Book.Category);
 					break;
 				default:
 					break;
@@ -100,18 +102,8 @@ namespace BookStore.Database.Reponsitory
 			await _context.BooksInCarts.AddAsync(booksInCart);
 		}
 		public async Task DeleteBookFromCart(List<int> arr) {
-			//var books = await _context.BooksInCarts.Where(b => b.Id.);
 			var books = await _context.BooksInCarts.Where(b => arr.Any(id => b.Id == id)).ToListAsync();
 			_context.BooksInCarts.RemoveRange(books);
-
-			//foreach(int id in arr)
-			//{
-			//	var bookInCard = new BooksInCart()
-			//	{
-			//		Id = id
-			//	};
-			//	_context.Entry(bookInCard).State = EntityState.Deleted;
-			//}
 		}
 		public async Task<BooksInCart> UpdateBookInCart(int id, int quantity)
 		{
@@ -121,7 +113,5 @@ namespace BookStore.Database.Reponsitory
 			booksInCart.DateUpdated = DateTime.Now;
 			return booksInCart;
 		}
-
-		
 	}
 }
