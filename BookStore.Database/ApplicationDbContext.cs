@@ -86,11 +86,6 @@ namespace BookStore.Database
 				.WithMany()
 				.HasForeignKey(b => b.IdBook)
 				.IsRequired();
-			modelBuilder.Entity<DetailOrder>()
-				.HasOne(o => o.Order)
-				.WithMany()
-				.HasForeignKey(od => od.IdOrder)
-				.IsRequired();
 
 			modelBuilder.Entity<Role>()
 				.HasMany(r => r.UserRoles)
@@ -101,7 +96,7 @@ namespace BookStore.Database
 
 			modelBuilder.Entity<User>()
 				.Property(u=> u.Avatar)
-				.HasDefaultValueSql("https://localhost:44369/avatars/defaultAvatar.jpg");
+				.HasDefaultValue("https://localhost:44369/avatars/defaultAvatar.jpg");
 			modelBuilder.Entity<User>()
 				.HasMany(u => u.UserRoles)
 				.WithOne()

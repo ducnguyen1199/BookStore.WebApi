@@ -8,7 +8,7 @@ namespace BookStore.Core.Repository
 {
 	public interface IBookReponsitory: IRepository 
 	{
-		Task Add(Book book);
+		Task<Book> Add(Book book);
 		Task Delete(int id);
 		Task<ListItemResponse<Book>> Get(BookFilterModel data );
 		Task<Book> GetDetail(int idUser);

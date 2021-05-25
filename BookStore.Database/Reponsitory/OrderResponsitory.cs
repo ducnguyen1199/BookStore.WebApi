@@ -36,6 +36,8 @@ namespace BookStore.Database.Reponsitory
 			_context.Orders.Remove(order);
 		}
 
-		public async Task<Order> GetById(int id) => await _context.Orders.FindAsync(id);
+		public async Task<Order> GetById(int id){
+			return await _context.Orders.Include(o => o.DetailOrders).FirstOrDefaultAsync(o=>o.Id == id);
+	}
 	}
 }

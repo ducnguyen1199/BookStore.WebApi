@@ -8,10 +8,10 @@ namespace BookStore.Application.IService
 {
 	public interface IBookService
 	{
-		Task Add(NewBookFilterModel filter);
+		Task<BookViewModel> Add(NewBookFilterModel filter);
 		Task<ListItemResponse<BookViewModel>> GetAll(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int Skip, int Offset);
 		Task<BookViewModel> GetDetail(int id);
-		Task  Delete(int id);
+		Task Delete(int id);
 		Task Update(int id, BookUpdateModel data);
 	}
 }

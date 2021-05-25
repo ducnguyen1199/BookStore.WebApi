@@ -20,7 +20,10 @@ namespace BookStore.Database.Reponsitory
 			_context = context;
 		}
 		public async Task Commit() => await _context.SaveChangesAsync();
-		public async Task Add(Book book) => await _context.Books.AddAsync(book);
+		public async Task<Book> Add(Book book) {
+			await _context.Books.AddAsync(book);
+			return book;
+		} 
 		public async Task Delete(int id)=> _context.Books.Remove(await _context.Books.FindAsync(id));
 		public async Task<ListItemResponse<Book>> Get(BookFilterModel filter)
 		{

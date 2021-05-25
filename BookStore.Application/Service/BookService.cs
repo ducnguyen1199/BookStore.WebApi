@@ -22,10 +22,12 @@ namespace BookStore.Application.Service
 			_mapper = mapper;
 		}
 
-		public async Task Add(NewBookFilterModel filter)
+		public async Task<BookViewModel> Add(NewBookFilterModel filter)
 		{
-			await _bookReponsitory.Add(_mapper.Map<Book>(filter));
+			Book book = await _bookReponsitory.Add(_mapper.Map<Book>(filter));
 			await _bookReponsitory.Commit();
+			BookViewModel newBook = _mapper.Map<BookViewModel>(await _bookReponsitory.GetDetail(book.Id));
+			return newBook;
 		}
 
 		public async Task Delete(int id)

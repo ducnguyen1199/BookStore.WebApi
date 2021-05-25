@@ -64,6 +64,7 @@ namespace BookStore.Controllers
 				PhoneNumber = filter.PhoneNumber,
 				Email = filter.Email,
 				FullName = filter.FullName,
+				Avatar = "https://localhost:44369/avatars/defaultAvatar.jpg",
 				SecurityStamp = Guid.NewGuid().ToString(),
 			};
 
