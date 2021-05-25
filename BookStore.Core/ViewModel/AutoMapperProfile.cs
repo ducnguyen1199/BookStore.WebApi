@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStore.Core.Entity;
+using BookStore.Core.FilterModel;
 using System.Collections.Generic;
 
 namespace BookStore.Core.ViewModel
@@ -10,7 +11,9 @@ namespace BookStore.Core.ViewModel
 		{
 			CreateMap<Book, BookViewModel>();
 			CreateMap<Author, AuthorViewModel>();
+			CreateMap<AuthorFilterModel, Author>();
 			CreateMap<BookViewModel, Book>();
+			CreateMap<NewBookFilterModel, Book>();
 			CreateMap<User, UserViewModel>();
 			CreateMap<FavoriteBook, FavoriteViewModel>();
 			CreateMap<BooksInCart, BooksInCartViewModel>();

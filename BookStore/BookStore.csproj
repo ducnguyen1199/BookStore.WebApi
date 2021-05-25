@@ -22,4 +22,9 @@
     <ProjectReference Include="..\BookStore.Database\BookStore.Database.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\bookImgs\" />
+    <Folder Include="wwwroot\authorImgs\" />
+  </ItemGroup>
+
 </Project>

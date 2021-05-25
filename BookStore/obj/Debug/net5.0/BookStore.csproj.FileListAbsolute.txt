@@ -78,3 +78,6 @@ C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\AutoMapper.Extension
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\BookStore.Application.dll
 C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\BookStore.Application.pdb
+C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\ncduc\Desktop\BookStore\BookStore\bin\Debug\net5.0\System.IO.Pipelines.dll

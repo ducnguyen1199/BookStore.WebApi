@@ -22,9 +22,9 @@ namespace BookStore.Application.Service
 			_mapper = mapper;
 		}
 
-		public async Task Add(BookViewModel bookViewModel)
+		public async Task Add(NewBookFilterModel filter)
 		{
-			await _bookReponsitory.Add(_mapper.Map<Book>(bookViewModel));
+			await _bookReponsitory.Add(_mapper.Map<Book>(filter));
 			await _bookReponsitory.Commit();
 		}
 
@@ -58,9 +58,9 @@ namespace BookStore.Application.Service
 			return  _mapper.Map<BookViewModel>(book);
 		}
 
-		public async Task Update(BookUpdateModel data)
+		public async Task Update(int id, BookUpdateModel data)
 		{
-			await _bookReponsitory.Update(data);
+			await _bookReponsitory.Update(id, data);
 			await _bookReponsitory.Commit();
 		}
 	}

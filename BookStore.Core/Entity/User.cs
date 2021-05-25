@@ -11,6 +11,7 @@ namespace BookStore.Core.Entity
 		public string FullName { get; set; }
 		[Required]
 		public DateTime BirthDay { get; set; }
+		public string Avatar { get; set; }
 		public virtual ICollection<IdentityUserRole<int>> UserRoles { get; } = new List<IdentityUserRole<int>>();
 		public virtual ICollection<Order> Orders { get; } = new List<Order>();
 		public virtual ICollection<FavoriteBook> FavoriteBooks { get; } = new List<FavoriteBook>();

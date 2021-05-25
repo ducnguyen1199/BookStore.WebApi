@@ -26,6 +26,9 @@ namespace BookStore.Database.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime2");
 
@@ -240,6 +243,11 @@ namespace BookStore.Database.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Avatar")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValueSql("https://localhost:44369/avatars/defaultAvatar/jpg");
 
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime2");

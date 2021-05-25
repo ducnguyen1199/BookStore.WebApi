@@ -15,6 +15,7 @@ namespace BookStore.Core.Entity
 		public DateTime BirthDay { get; set; }
 		[Required]
 		public string Story { get; set; }
+		public string Avatar { get; set; }
 
 		[InverseProperty(nameof(Book.Author))]
 		public virtual ICollection<Book> Books { get; } = new List<Book>();

@@ -76,9 +76,9 @@ namespace BookStore.Database.Reponsitory
 			};
 		}
 		public async Task<Book> GetDetail(int id) => await _context.Books.Include(b => b.Category).Include(b => b.Author).FirstOrDefaultAsync(b=>b.Id==id);
-		public async Task Update( BookUpdateModel data)
+		public async Task Update(int id, BookUpdateModel data)
 		{
-			Book book = await _context.Books.FindAsync(data.Id);
+			Book book = await _context.Books.FindAsync(id);
 			book.IdAuthor = data.IdAuthor;
 			book.IdCategory = data.IdCategory;
 			book.Description = data.Description;

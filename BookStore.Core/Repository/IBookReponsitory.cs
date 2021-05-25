@@ -12,6 +12,6 @@ namespace BookStore.Core.Repository
 		Task Delete(int id);
 		Task<ListItemResponse<Book>> Get(BookFilterModel data );
 		Task<Book> GetDetail(int idUser);
-		Task Update(BookUpdateModel data);
+		Task Update(int id, BookUpdateModel data);
 	}
 }

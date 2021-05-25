@@ -8,5 +8,6 @@ namespace BookStore.Core.ViewModel
 		public string Name { get; set; }
 		public DateTime BirthDay { get; set; }
 		public string Story { get; set; }
+		public string Avatar { get; set; }
 	}
 }

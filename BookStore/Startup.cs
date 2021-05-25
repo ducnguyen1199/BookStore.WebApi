@@ -38,6 +38,7 @@ namespace BookStore
 			services.AddScoped<IOrderReponsitory, OrderResponsitory>();
 
 			services.AddScoped<IBookService, BookService>();
+			services.AddScoped<IAuthorService, AuthorService>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IOrderService, OrderService>();
 
@@ -110,6 +111,7 @@ namespace BookStore
 			}
 
 			app.UseHttpsRedirection();
+			app.UseStaticFiles();
 
 			app.UseRouting();
 			app.UseCors("MyOrigins");

@@ -64,6 +64,12 @@ namespace BookStore.Database.Reponsitory
 			user.PhoneNumber = filter.PhoneNumber;
 			return user;
 		}
+		public async Task<User> UpdateAvatar(int id, string avatar)
+		{
+			User user = await _context.Users.FindAsync(id);
+			user.Avatar = "https://localhost:44369/avatars/"+ avatar;
+			return user;
+		}
 		public async Task UpdatePassword(int id, string newPasswordHash)
 		{
 			User user = await _context.Users.FindAsync(id);
@@ -115,5 +121,7 @@ namespace BookStore.Database.Reponsitory
 			booksInCart.DateUpdated = DateTime.Now;
 			return booksInCart;
 		}
+
+		
 	}
 }

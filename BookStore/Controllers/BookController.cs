@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using BookStore.Application.IService;
+using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.UpdateModel;
-using BookStore.Core.ViewModel;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
@@ -15,11 +18,13 @@ namespace BookStore.Controllers
 		private readonly IBookReponsitory _bookReponsitory;
 		private readonly IMapper _mapper;
 		private readonly IBookService _bookService;
-		public BookController(IBookReponsitory bookReponsitory, IMapper mapper, IBookService bookService)
+		private readonly IHostingEnvironment _environment;
+		public BookController(IBookReponsitory bookReponsitory, IMapper mapper, IBookService bookService, IHostingEnvironment environment)
 		{
 			_bookReponsitory = bookReponsitory;
 			_mapper = mapper;
 			_bookService = bookService;
+			_environment = environment;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Get(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int? Skip, int? Offset)
@@ -36,10 +41,12 @@ namespace BookStore.Controllers
 		{
 			return Ok(await _bookService.GetDetail(idBook));
 		}
+
 		[HttpPost]
-		public async Task<IActionResult> Add(BookViewModel bookViewModel)
+		public async Task<IActionResult> Add([FromForm]NewBookFilterModel filter)
 		{
-			await _bookService.Add(bookViewModel);
+			filter.Image = await UploadImg(filter.file);
+			await _bookService.Add(filter);
 			return Ok();
 		}
 		[HttpDelete]
@@ -48,11 +55,27 @@ namespace BookStore.Controllers
 			await _bookService.Delete(id);
 			return Ok();
 		}
-		[HttpPut]
-		public async Task<IActionResult> Update(BookUpdateModel data)
+		[HttpPut("{id}")]
+		public async Task<IActionResult> Update(int id, [FromForm] BookUpdateModel filter)
 		{
-			await _bookService.Update(data);
+			filter.Image = await UploadImg(filter.file);
+			await _bookService.Update(id,filter);
 			return Ok();
+		}
+
+		private async Task<string> UploadImg(IFormFile file)
+		{
+
+			var uploads = Path.Combine(_environment.WebRootPath, "bookImgs");
+			if (file.Length > 0)
+			{
+				using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+				{
+					await file.CopyToAsync(fileStream);
+				}
+				return "https://localhost:44369/bookImgs/" + file.FileName;
+			}
+			return "";
 		}
 	}
 }

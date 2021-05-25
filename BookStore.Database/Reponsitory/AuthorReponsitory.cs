@@ -26,9 +26,9 @@ namespace BookStore.Database.Reponsitory
 				Count = await authors.CountAsync()
 			};
 		}
-		public async Task Update(Author newAuthor)
+		public async Task Update(int Id, Author newAuthor)
 		{
-			Author author = await _context.Authors.FindAsync(newAuthor.Id);
+			Author author = await _context.Authors.FindAsync(Id);
 			author.Name = newAuthor.Name;
 			author.Story = newAuthor.Story;
 			author.BirthDay = newAuthor.BirthDay;

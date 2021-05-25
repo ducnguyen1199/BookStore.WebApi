@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using BookStore.Core.Entity;
 using BookStore.Core.Repository;
-using BookStore.Core.Shared;
-using BookStore.Core.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
 using BookStore.Application.IService;
 using BookStore.Core.FilterModel;
 using System.Collections.Generic;
 using BookStore.Core.UpdateModel;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BookStore.Controllers
 {
@@ -19,12 +18,14 @@ namespace BookStore.Controllers
 	{
 		private readonly IUserService _userService;
 		private readonly IUserReponsitory _userReponsitory;
+		private readonly IHostingEnvironment _environment;
 		private readonly IMapper _mapper;
-		public UserController(IUserReponsitory userReponsitory, IMapper mapper, IUserService userService)
+		public UserController(IUserReponsitory userReponsitory, IMapper mapper, IUserService userService, IHostingEnvironment environment)
 		{
 			_userReponsitory = userReponsitory;
 			_mapper = mapper;
 			_userService = userService;
+			_environment = environment;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Get()
@@ -41,6 +42,13 @@ namespace BookStore.Controllers
 		public async Task<IActionResult> UpdateInfoUser([FromBody] UserUpdateModel filter)
 		{
 			var user = await _userService.UpdateInfoUser(filter);
+			return Ok(user);
+		}
+		[HttpPut("UpdateAvatar/{idUser}")]
+		public async Task<IActionResult> UpdateAvatar(int idUser, IFormFile file)
+		{
+			string avatar = await UploadImg(file) + idUser + file.FileName;
+			var user = await _userService.UpdateAvatar(idUser, avatar);
 			return Ok(user);
 		}
 		[HttpGet("Like/{idUser}")]
@@ -84,6 +92,19 @@ namespace BookStore.Controllers
 		public async Task<IActionResult> UpdateBookInCart(int id, int quantity)
 		{
 			return Ok(await _userService.UpdateBookInCart(id, quantity));
+		}
+		private async Task<string> UploadImg(IFormFile file)
+		{
+			var uploads = Path.Combine(_environment.WebRootPath, "avatars");
+			if (file.Length > 0)
+			{
+				using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+				{
+					await file.CopyToAsync(fileStream);
+				}
+				return "https://localhost:44369/avatar/";
+			}
+			return "";
 		}
 	}
 }

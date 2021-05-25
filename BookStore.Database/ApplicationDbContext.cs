@@ -88,6 +88,9 @@ namespace BookStore.Database
 
 
 			modelBuilder.Entity<User>()
+				.Property(u=> u.Avatar)
+				.HasDefaultValueSql("https://localhost:44369/avatars/defaultAvatar.jpg");
+			modelBuilder.Entity<User>()
 				.HasMany(u => u.UserRoles)
 				.WithOne()
 				.HasForeignKey(ur => ur.UserId)

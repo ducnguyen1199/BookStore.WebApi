@@ -7,6 +7,7 @@ using BookStore.Core.Repository;
 using BookStore.Core.Shared;
 using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,6 +42,12 @@ namespace BookStore.Application.Service
 		public async Task<UserViewModel> UpdateInfoUser(UserUpdateModel filter)
 		{
 			User user = await _userReponsitory.UpdateInfoUser(filter);
+			await _userReponsitory.Commit();
+			return _mapper.Map<UserViewModel>(user);
+		}
+		public async Task<UserViewModel> UpdateAvatar(int idUser, string avatar)
+		{
+			User user = await _userReponsitory.UpdateAvatar(idUser, avatar);
 			await _userReponsitory.Commit();
 			return _mapper.Map<UserViewModel>(user);
 		}

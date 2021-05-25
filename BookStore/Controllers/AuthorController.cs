@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using BookStore.Core.Entity;
+using BookStore.Application.IService;
+using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
-using BookStore.Core.Shared;
-using BookStore.Core.ViewModel;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
@@ -14,44 +15,54 @@ namespace BookStore.Controllers
 	public class AuthorController: ControllerBase
 	{
 		private readonly IAuthorReponsitory _authorReponsitory;
-		private readonly IMapper _mapper;
-		public AuthorController(IAuthorReponsitory authorReponsitory, IMapper mapper)
+		private readonly IAuthorService _authorService;
+		private readonly IMapper _mapper; 
+		private readonly IHostingEnvironment _environment;
+		public AuthorController(IAuthorReponsitory authorReponsitory, IMapper mapper, IHostingEnvironment environment, IAuthorService authorService)
 		{
 			_authorReponsitory = authorReponsitory;
 			_mapper = mapper;
+			_environment = environment;
+			_authorService = authorService;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			
-			ListItemResponse<Author> books = await _authorReponsitory.Get();
-
-			return Ok(new ListItemResponse<AuthorViewModel>
-			{
-				Data = books.Data.Select(u => _mapper.Map<AuthorViewModel>(u)),
-				Count = books.Count
-			});
+			return Ok(await _authorService.Get());
 		}
 		[HttpPost]
-		public async Task<IActionResult> Add(Author author)
+		public async Task<IActionResult> Add([FromForm]AuthorFilterModel filter)
 		{
-			await _authorReponsitory.Add(author);
-			await _authorReponsitory.Commit();
+			filter.Avatar = await this.UploadImg(filter.file);
+			await _authorService.Add(filter);
 			return Ok();
 		}
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)
 		{
-			await _authorReponsitory.Delete(id);
-			await _authorReponsitory.Commit();
+			await _authorService.Delete(id);
 			return Ok();
 		}
-		[HttpPut]
-		public async Task<IActionResult> Update([FromBody]Author newAuthor)
+		[HttpPut("{idAuthor}")]
+		public async Task<IActionResult> Update(int idAuthor, [FromForm] AuthorFilterModel filter)
 		{
-			await _authorReponsitory.Update(newAuthor);
-			await _authorReponsitory.Commit();
+			filter.Avatar = await this.UploadImg(filter.file);
+			await _authorService.Update(idAuthor, filter);
 			return Ok();
+		}
+
+		private async Task<string> UploadImg(IFormFile file)
+		{
+			var uploads = Path.Combine(_environment.WebRootPath, "authorImgs");
+			if (file.Length > 0)
+			{
+				using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+				{
+					await file.CopyToAsync(fileStream);
+				}
+				return "https://localhost:44369/authorImgs/" + file.FileName;
+			}
+			return "";
 		}
 	}
 }

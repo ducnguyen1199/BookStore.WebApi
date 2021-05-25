@@ -10,6 +10,6 @@ namespace BookStore.Core.Repository
 		Task<ListItemResponse<Author>> Get();
 		Task Add(Author author);
 		Task Delete(int id);
-		Task Update(Author author);
+		Task Update(int Id, Author author);
 	}
 }
