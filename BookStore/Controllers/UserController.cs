@@ -85,8 +85,7 @@ namespace BookStore.Controllers
 		[HttpPost("AddBookIntoCart")]
 		public async Task<IActionResult> AddBookIntoCart(BookInCartFilterModel fitler)
 		{
-			await _userService.AddBookIntoCart(fitler);
-			return Ok();
+			return Ok(await _userService.AddBookIntoCart(fitler));
 		}
 		[HttpDelete("DeleteBookFromCart/{id}")]
 		public async Task<IActionResult> DeleteBookIntoCart(int id)
@@ -94,12 +93,6 @@ namespace BookStore.Controllers
 			await _userService.DeleteBookFromCart(new List<int>() { id });
 			return Ok();
 		}
-		//[HttpDelete("DeleteBookFromCart")]
-		//public async Task<IActionResult> DeleteBookIntoCart([FromBody] List<int> arr)
-		//{
-		//	await _userService.DeleteBookFromCart(arr);
-		//	return Ok();
-		//}
 		[HttpPut("UpdateBookInCart/{id}")]
 		public async Task<IActionResult> UpdateBookInCart(int id, int quantity)
 		{

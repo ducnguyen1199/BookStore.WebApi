@@ -7,7 +7,6 @@ using BookStore.Core.Repository;
 using BookStore.Core.Shared;
 using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,10 +72,12 @@ namespace BookStore.Application.Service
 			ICollection<BooksInCart> booksInCarts = user.BooksInCarts;
 			return _mapper.Map<ICollection<BooksInCartViewModel>>(booksInCarts);
 		}
-		public async Task AddBookIntoCart(BookInCartFilterModel filter)
+		public async Task<BooksInCartViewModel> AddBookIntoCart(BookInCartFilterModel filter)
 		{
-			await _userReponsitory.AddBookIntoCart(filter);
+			BooksInCart booksInCart = await _userReponsitory.AddBookIntoCart(filter);
 			await _userReponsitory.Commit();
+			booksInCart = await _userReponsitory.GetById(booksInCart.Id);
+			return _mapper.Map<BooksInCartViewModel>(booksInCart);
 		}
 		public async Task DeleteBookFromCart(List<int> arr)
 		{

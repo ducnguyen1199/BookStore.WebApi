@@ -34,8 +34,7 @@ namespace BookStore.Controllers
 		public async Task<IActionResult> Add([FromForm]AuthorFilterModel filter)
 		{
 			filter.Avatar = await this.UploadImg(filter.file);
-			await _authorService.Add(filter);
-			return Ok();
+			return Ok(await _authorService.Add(filter));
 		}
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)

@@ -29,7 +29,7 @@ namespace BookStore.Controllers
 		{
 			await _categoryReponsitory.Add(category);
 			await _categoryReponsitory.Commit();
-			return Ok();
+			return Ok(category);
 		}
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)

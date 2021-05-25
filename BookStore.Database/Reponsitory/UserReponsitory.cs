@@ -89,7 +89,7 @@ namespace BookStore.Database.Reponsitory
 			FavoriteBook check = await _context.FavoriteBooks.FirstOrDefaultAsync(fb => fb.IdUser == idUser && fb.IdBook == idBook);
 			if (check != null) _context.FavoriteBooks.Remove(check);
 		}
-		public async Task AddBookIntoCart(BookInCartFilterModel filter)
+		public async Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter)
 		{
 			Book book = await _context.Books.FindAsync(filter.IdBook);
 
@@ -100,6 +100,11 @@ namespace BookStore.Database.Reponsitory
 			booksInCart.SubTotal = filter.Quantity * book.Price;
 
 			await _context.BooksInCarts.AddAsync(booksInCart);
+			return booksInCart;
+		}
+		public async Task<BooksInCart> GetById(int id)
+		{
+			return await _context.BooksInCarts.Include(b => b.Book.Author).Include(b => b.Book.Category).FirstOrDefaultAsync(b => b.Id == id);
 		}
 		public async Task DeleteBookFromCart(List<int> arr) {
 			var books = await _context.BooksInCarts.Where(b => arr.Any(id => b.Id == id)).ToListAsync();

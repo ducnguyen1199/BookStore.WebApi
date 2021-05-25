@@ -18,9 +18,9 @@ namespace BookStore.Core.Repository
 		Task UpdatePassword(int id, string newHashPassword);
 		Task Like(int idUser, int idBook);
 		Task UnLike(int idUser, int idBook);
-		Task AddBookIntoCart(BookInCartFilterModel filter);
+		Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter);
 		Task DeleteBookFromCart(List<int> arr);
 		Task<BooksInCart> UpdateBookInCart(int id, int quantity);
-		
+		Task<BooksInCart> GetById(int id);
 	}
 }

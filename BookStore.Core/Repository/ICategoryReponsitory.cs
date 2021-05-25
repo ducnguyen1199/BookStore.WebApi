@@ -6,7 +6,7 @@ namespace BookStore.Core.Repository
 	public interface ICategoryReponsitory : IRepository 
 	{
 		Task<ListItemResponse<Category>> Get();
-		Task Add(Category category);
+		Task<Category> Add(Category category);
 		Task Delete(int id);
 	}
 }

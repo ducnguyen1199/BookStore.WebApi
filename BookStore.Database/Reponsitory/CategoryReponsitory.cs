@@ -17,7 +17,10 @@ namespace BookStore.Database.Reponsitory
 
 		public async Task Commit() => await _context.SaveChangesAsync();
 
-		public async Task Add(Category category) => await _context.Categories.AddAsync(category);
+		public async Task<Category> Add(Category category) {
+			await _context.Categories.AddAsync(category);
+			return category;
+		} 
 
 		public async Task Delete(int id) => _context.Categories.Remove(await _context.Categories.FindAsync(id));
 

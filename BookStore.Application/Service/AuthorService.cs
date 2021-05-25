@@ -20,10 +20,11 @@ namespace BookStore.Application.Service
 			_mapper = mapper;
 		}
 
-		public async Task Add(AuthorFilterModel filter)
+		public async Task<AuthorViewModel> Add(AuthorFilterModel filter)
 		{
-			await _authorReponsitory.Add(_mapper.Map<Author>(filter));
+			Author author = await _authorReponsitory.Add(_mapper.Map<Author>(filter));
 			await _authorReponsitory.Commit();
+			return _mapper.Map<AuthorViewModel>(author);
 		}
 
 		public async Task Delete(int id)
