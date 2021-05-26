@@ -22,7 +22,7 @@ namespace BookStore.Database.Reponsitory
 		public async Task Delete(int id) => _context.Authors.Remove(await _context.Authors.FindAsync(id));		
 		public async Task<ListItemResponse<Author>> Get()
 		{
-			IQueryable<Author> authors = _context.Authors;
+			IQueryable<Author> authors = _context.Authors.Include(a=>a.Books);
 			return new ListItemResponse<Author>
 			{
 				Data = await authors.ToListAsync(),
