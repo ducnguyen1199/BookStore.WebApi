@@ -74,10 +74,8 @@ namespace BookStore
 				options.Password.RequiredUniqueChars = 0;
 			});
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore", Version = "v1" });
-			});
+
+
 			services.AddAuthentication(options =>
 			{
 				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -86,18 +84,41 @@ namespace BookStore
 			})
 			.AddJwtBearer(options =>
 			{
-				 options.SaveToken = true;
-				 options.RequireHttpsMetadata = false;
-				 options.TokenValidationParameters = new TokenValidationParameters()
-				 {
-					 ValidateIssuer = true,
-					 ValidateAudience = true,
-					 ValidateIssuerSigningKey = true,
-					 ValidIssuer = Configuration["JWT:Issuer"],
-					 ValidAudience = Configuration["JWT:Audience"],
-					 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
-				 };
-			 });
+				options.SaveToken = true;
+				options.RequireHttpsMetadata = false;
+				options.TokenValidationParameters = new TokenValidationParameters()
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer = Configuration["JWT:Issuer"],
+					ValidAudience = Configuration["JWT:Audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+				};
+			});
+			services.AddSwaggerGen(c =>
+			{
+				var securityScheme = new OpenApiSecurityScheme
+				{
+					Name = "JWT Authentication",
+					Description = "Enter JWT Bearer token **_only_**",
+					In = ParameterLocation.Header,
+					Type = SecuritySchemeType.Http,
+					Scheme = "bearer", // must be lower case
+					BearerFormat = "JWT",
+					Reference = new OpenApiReference
+					{
+						Id = JwtBearerDefaults.AuthenticationScheme,
+						Type = ReferenceType.SecurityScheme
+					}
+				};
+				c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{securityScheme, new string[] { }}
+				});
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore", Version = "v1" });
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

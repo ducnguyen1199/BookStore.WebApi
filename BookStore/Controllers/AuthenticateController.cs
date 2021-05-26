@@ -5,6 +5,7 @@ using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.UpdateModel;
 using BookStore.Core.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+	[Authorize(Roles = RoleType.AdminOrCustomer)]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class AuthenticateController : ControllerBase
@@ -39,7 +41,7 @@ namespace BookStore.Controllers
 			_userReponsitory = userReponsitory;
 			_configuration = configuration;
 		}
-
+		[AllowAnonymous]
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] RegisterFilterModel filter)
 		{
@@ -80,7 +82,7 @@ namespace BookStore.Controllers
 			await _userManager.AddToRoleAsync(user, RoleType.Customer);
 			return Ok(new { Success = true, Message = "User created!" });
 		}
-
+		[AllowAnonymous]
 		[HttpPost("login")]
 		public async Task<IActionResult> Login([FromBody] LoginFilterModel filter)
 		{
@@ -117,6 +119,7 @@ namespace BookStore.Controllers
 			}
 			return Unauthorized(new { Success = false, Message = "UserName or Password is not match" });
 		}
+		
 		[HttpPut("changePassword")]
 		public async Task<IActionResult> changePassword([FromBody] PasswordUpdateModel filter)
 		{

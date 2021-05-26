@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZZJHvgRYFOvlRpbR9Rm4d9CYeg6MipmYlwBDW4YXPhxRtr7TQ54s2IRMBWxCn/F49cxZolMZGlIeygNPRFENIA==",
+  "dgSpecHash": "UtfEbVaOxir1oj7TWgZBf7szIXLB+2dAuY/O+FzJP+vMt7oayRa2WThIQyRA23b/975rfT8ltRnpk6gKjoglag==",
   "success": true,
   "projectFilePath": "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore.Application\\BookStore.Application.csproj",
   "expectedPackageFiles": [
@@ -9,12 +9,14 @@
     "C:\\Users\\ncduc\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.3\\microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512",
+    "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.6\\microsoft.aspnetcore.authorization.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.6\\microsoft.aspnetcore.cryptography.internal.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.6\\microsoft.aspnetcore.cryptography.keyderivation.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.6\\microsoft.aspnetcore.http.features.5.0.6.nupkg.sha512",
+    "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.metadata\\5.0.6\\microsoft.aspnetcore.metadata.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\2.2.0\\microsoft.extensions.configuration.abstractions.2.2.0.nupkg.sha512",

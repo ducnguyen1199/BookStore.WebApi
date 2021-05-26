@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using BookStore.Core.Entity;
+using BookStore.Core.Enum;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+	[Authorize(Roles = RoleType.Admin)]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class CategoryController : ControllerBase
@@ -18,6 +21,7 @@ namespace BookStore.Controllers
 			_categoryReponsitory = categoryReponsitory;
 			_mapper = mapper;
 		}
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{

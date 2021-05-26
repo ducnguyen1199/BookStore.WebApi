@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BookStore.Application.IService;
+using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+	[Authorize(Roles = RoleType.Admin)]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class AuthorController: ControllerBase
@@ -25,6 +28,7 @@ namespace BookStore.Controllers
 			_environment = environment;
 			_authorService = authorService;
 		}
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
