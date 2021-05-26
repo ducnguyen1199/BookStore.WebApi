@@ -9,5 +9,6 @@ namespace BookStore.Core.ViewModel
 		public DateTime BirthDay { get; set; }
 		public string Story { get; set; }
 		public string Avatar { get; set; }
+		public int BookCount { get; set; }
 	}
 }

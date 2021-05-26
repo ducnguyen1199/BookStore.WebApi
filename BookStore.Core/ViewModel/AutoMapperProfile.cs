@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BookStore.Core.Entity;
 using BookStore.Core.FilterModel;
-using System.Collections.Generic;
 
 namespace BookStore.Core.ViewModel
 {
@@ -10,7 +9,7 @@ namespace BookStore.Core.ViewModel
 		public AutoMapperProfile()
 		{
 			CreateMap<Book, BookViewModel>();
-			CreateMap<Author, AuthorViewModel>();
+			CreateMap<Author, AuthorViewModel>().ForMember(vm => vm.BookCount, options => options.MapFrom(a => a.Books.Count));
 			CreateMap<AuthorFilterModel, Author>();
 			CreateMap<BookViewModel, Book>();
 			CreateMap<NewBookFilterModel, Book>();
