@@ -33,21 +33,25 @@ namespace BookStore.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add([FromForm]AuthorFilterModel filter)
 		{
+			if (string.IsNullOrWhiteSpace(filter.Name)) return BadRequest(new { Success = false, Message = "Name is required" });
+			if (string.IsNullOrWhiteSpace(filter.Story)) return BadRequest(new { Success = false, Message = "Story is required" });
 			filter.Avatar = await this.UploadImg(filter.file);
+			if (filter.Avatar == null) BadRequest(new { success = false, message = "Avatar is empty!" });
 			return Ok(await _authorService.Add(filter));
 		}
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)
 		{
 			await _authorService.Delete(id);
-			return Ok();
+			return Ok(new { success = true, message = "Author was deleted!" });
 		}
 		[HttpPut("{idAuthor}")]
 		public async Task<IActionResult> Update(int idAuthor, [FromForm] AuthorFilterModel filter)
 		{
 			filter.Avatar = await this.UploadImg(filter.file);
+			if (filter.Avatar == null) BadRequest(new { success = false, message = "Avatar is empty!" });
 			await _authorService.Update(idAuthor, filter);
-			return Ok();
+			return Ok(new { success = true, message = "Avatar was added!" });
 		}
 
 		private async Task<string> UploadImg(IFormFile file)
@@ -61,7 +65,7 @@ namespace BookStore.Controllers
 				}
 				return "https://localhost:44369/authorImgs/" + file.FileName;
 			}
-			return "";
+			return null;
 		}
 	}
 }

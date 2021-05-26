@@ -38,6 +38,7 @@ namespace BookStore.Controllers
 		public async Task<IActionResult> GetById(int idUser)
 		{
 			var user = await _userService.GetById(idUser);
+			if (user == null) return BadRequest(new { success = false, message = "User is undefinded" });
 			return Ok(user);
 		}
 		[HttpPut("UpdateInfoUser")]
@@ -49,7 +50,10 @@ namespace BookStore.Controllers
 		[HttpPut("UpdateAvatar/{idUser}")]
 		public async Task<IActionResult> UpdateAvatar(int idUser, IFormFile file)
 		{
-			string avatar = await UploadImg(file) + idUser + file.FileName;
+			string urlImg = await UploadImg(file);
+			if (urlImg == null) BadRequest(new { success = false, message = "Avatar is empty!" });
+			string avatar = urlImg + idUser + file.FileName;
+			
 			var user = await _userService.UpdateAvatar(idUser, avatar);
 			return Ok(user);
 		}
@@ -63,13 +67,13 @@ namespace BookStore.Controllers
 		public async Task<IActionResult> Like(int idUser, int idBook)
 		{
 			await _userService.Like(idUser, idBook);
-			return Ok();
+			return Ok(new { success = true, meessage = "Liked" });
 		}
 		[HttpDelete("UnLike")]
 		public async Task<IActionResult> UnLike(int idUser, int idBook)
 		{
 			await _userService.UnLike(idUser, idBook);
-			return Ok();
+			return Ok(new { success = true, meessage = "UnLiked" });
 		}
 
 		[HttpGet("BooksInCart/{idUser}")]
@@ -83,15 +87,17 @@ namespace BookStore.Controllers
 			});
 		}
 		[HttpPost("AddBookIntoCart")]
-		public async Task<IActionResult> AddBookIntoCart(BookInCartFilterModel fitler)
+		public async Task<IActionResult> AddBookIntoCart(BookInCartFilterModel filter)
 		{
-			return Ok(await _userService.AddBookIntoCart(fitler));
+			if (filter.Quantity < 1) return BadRequest(new { Success = false, Message = "Quantity >= 1" });
+
+			return Ok(await _userService.AddBookIntoCart(filter));
 		}
 		[HttpDelete("DeleteBookFromCart/{id}")]
 		public async Task<IActionResult> DeleteBookIntoCart(int id)
 		{
 			await _userService.DeleteBookFromCart(new List<int>() { id });
-			return Ok();
+			return Ok(new { success = false, message = "Book was deleted!"});
 		}
 		[HttpPut("UpdateBookInCart/{id}")]
 		public async Task<IActionResult> UpdateBookInCart(int id, int quantity)
@@ -109,7 +115,7 @@ namespace BookStore.Controllers
 				}
 				return "https://localhost:44369/avatar/";
 			}
-			return "";
+			return null;
 		}
 	}
 }

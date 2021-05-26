@@ -92,15 +92,21 @@ namespace BookStore.Database.Reponsitory
 		public async Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter)
 		{
 			Book book = await _context.Books.FindAsync(filter.IdBook);
+			BooksInCart booksInCart = await _context.BooksInCarts.FirstOrDefaultAsync(b => b.IdBook == filter.IdBook && b.IdUser == filter.IdUser);
+			if(booksInCart != null)
+			{
+				booksInCart.Quantity++;
+				booksInCart.SubTotal = booksInCart.Quantity * book.Price;
+				return booksInCart;
+			}
+			BooksInCart newBook =new BooksInCart();
+			newBook.IdBook = filter.IdBook;
+			newBook.IdUser = filter.IdUser;
+			newBook.Quantity = filter.Quantity;
+			newBook.SubTotal = filter.Quantity * book.Price;
 
-			BooksInCart booksInCart =new BooksInCart();
-			booksInCart.IdBook = filter.IdBook;
-			booksInCart.IdUser = filter.IdUser;
-			booksInCart.Quantity = filter.Quantity;
-			booksInCart.SubTotal = filter.Quantity * book.Price;
-
-			await _context.BooksInCarts.AddAsync(booksInCart);
-			return booksInCart;
+			await _context.BooksInCarts.AddAsync(newBook);
+			return newBook;
 		}
 		public async Task<BooksInCart> GetById(int id)
 		{

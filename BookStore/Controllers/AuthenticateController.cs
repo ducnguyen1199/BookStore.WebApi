@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
@@ -43,20 +44,17 @@ namespace BookStore.Controllers
 		public async Task<IActionResult> Register([FromBody] RegisterFilterModel filter)
 		{
 			User userExist = await _userReponsitory.GetByUserName(filter.UserName);
-			if (userExist != null)
-			{
-				return BadRequest(new { Success = false, Message = "User already exists!" });
-			}
-			if (string.IsNullOrWhiteSpace(filter.UserName))
-				return BadRequest(new { Success = false, Message = "UserName is required" });
-
-			if (string.IsNullOrWhiteSpace(filter.Password))
-				return BadRequest(new { Success = false, Message = "Password is required" });
-			if (string.IsNullOrWhiteSpace(filter.Email))
-				return BadRequest(new { Success = false, Message = "Email is required" });
-			if (string.IsNullOrWhiteSpace(filter.PhoneNumber))
-				return BadRequest(new { Success = false, Message = "PhoneNumber is required" });
-
+			if (userExist != null) return BadRequest(new { Success = false, Message = "User already exists!" });
+			if (string.IsNullOrWhiteSpace(filter.UserName)) return BadRequest(new { Success = false, Message = "UserName is required" });
+			if (filter.UserName.Length < 4 || filter.UserName.Length > 10) return BadRequest(new { Success = false, Message = "Username's length must be between 4 and 10 " });
+			if (!Regex.IsMatch(filter.UserName, "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$")) return BadRequest(new { Success = false, Message = "Username can only contain a-z 0-9 . _ " });
+			if (string.IsNullOrWhiteSpace(filter.Password)) return BadRequest(new { Success = false, Message = "Password is required" });
+			if (filter.Password.Length < 6) return BadRequest(new { Success = false, Message = "Password's length >= 6" });
+			if (string.IsNullOrWhiteSpace(filter.Email)) return BadRequest(new { Success = false, Message = "Email is required" });
+			if (string.IsNullOrWhiteSpace(filter.PhoneNumber)) return BadRequest(new { Success = false, Message = "PhoneNumber is required" });
+			if (!Regex.IsMatch(filter.PhoneNumber, "^[0-9]*$")) return BadRequest(new { Success = false, Message = "PhoneNumber must be number" });
+			if (filter.PhoneNumber.Length < 10 || filter.PhoneNumber.Length > 12) return BadRequest(new { Success = false, Message = "PhoneNumber's length must be between 10 and 12 " });
+			
 			User user = new User()
 			{
 				UserName = filter.UserName,
@@ -80,7 +78,7 @@ namespace BookStore.Controllers
 				await _roleManager.CreateAsync(new Role(RoleType.Customer));
 
 			await _userManager.AddToRoleAsync(user, RoleType.Customer);
-			return Ok();
+			return Ok(new { Success = true, Message = "User created!" });
 		}
 
 		[HttpPost("login")]

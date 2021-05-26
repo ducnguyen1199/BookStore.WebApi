@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
@@ -45,14 +46,16 @@ namespace BookStore.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add([FromForm]NewBookFilterModel filter)
 		{
+			if (string.IsNullOrWhiteSpace(filter.Name)) return BadRequest(new { Success = false, Message = "Name is required" });
 			filter.Image = await UploadImg(filter.file);
+			if (filter.Image == null) BadRequest(new { success = false, message = "Avatar is empty!" });
 			return Ok(await _bookService.Add(filter));
 		}
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)
 		{
 			await _bookService.Delete(id);
-			return Ok();
+			return Ok(new { success = true, message = "Book was Deleted!" });
 		}
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, [FromForm] BookUpdateModel filter)
@@ -74,7 +77,7 @@ namespace BookStore.Controllers
 				}
 				return "https://localhost:44369/bookImgs/" + file.FileName;
 			}
-			return "";
+			return null;
 		}
 	}
 }

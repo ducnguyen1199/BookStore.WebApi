@@ -50,13 +50,16 @@ namespace BookStore.Database.Reponsitory
 				switch (filter.OrderBy)
 				{
 					case TypeOrderBy.PriceDESC:
-						books.OrderByDescending(b => b.Price);
+						books = books.OrderByDescending(b => b.Price);
 						break;
 					case TypeOrderBy.PriceASC:
-						books.OrderBy(b => b.Price);
+						books =books.OrderBy(b => b.Price);
 						break;
 					case TypeOrderBy.DateCreated:
-						books.OrderByDescending(b => b.DateCreated);
+						books = books.OrderByDescending(b => b.DateCreated);
+						break;
+					case TypeOrderBy.Favaorite:
+						books = books.Include(b => b.FavoriteBooks).OrderByDescending(b=>b.FavoriteBooks.Count);
 						break;
 					default:
 						break;

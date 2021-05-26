@@ -25,9 +25,10 @@ namespace BookStore.Controllers
 			return Ok(categories);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Add(Category category)
+		public async Task<IActionResult> Add(string Name)
 		{
-			await _categoryReponsitory.Add(category);
+			if (string.IsNullOrWhiteSpace(Name)) return BadRequest(new { Success = false, Message = "Category is required" });
+			Category category = await _categoryReponsitory.Add(new Category() { Name = Name});
 			await _categoryReponsitory.Commit();
 			return Ok(category);
 		}
@@ -36,7 +37,7 @@ namespace BookStore.Controllers
 		{
 			await _categoryReponsitory.Delete(id);
 			await _categoryReponsitory.Commit();
-			return Ok();
+			return Ok(new { success = true, message = "Category deleted!"});
 		}
 	}
 }
