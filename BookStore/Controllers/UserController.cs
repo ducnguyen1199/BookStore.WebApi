@@ -11,9 +11,12 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using BookStore.Core.ViewModel;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using BookStore.Core.Enum;
 
 namespace BookStore.Controllers
 {
+	[Authorize]
 	[Route("api/[Controller]")]
 	[ApiController]
 	public class UserController: ControllerBase
@@ -29,11 +32,13 @@ namespace BookStore.Controllers
 			_userService = userService;
 			_environment = environment;
 		}
+		[Authorize(Roles = RoleType.Admin)]
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
 			return Ok(await _userService.Get());
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpGet("{idUser}")]
 		public async Task<IActionResult> GetById(int idUser)
 		{
@@ -41,12 +46,14 @@ namespace BookStore.Controllers
 			if (user == null) return BadRequest(new { success = false, message = "User is undefinded" });
 			return Ok(user);
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpPut("UpdateInfoUser")]
 		public async Task<IActionResult> UpdateInfoUser([FromBody] UserUpdateModel filter)
 		{
 			var user = await _userService.UpdateInfoUser(filter);
 			return Ok(user);
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpPut("UpdateAvatar/{idUser}")]
 		public async Task<IActionResult> UpdateAvatar(int idUser, IFormFile file)
 		{
@@ -57,25 +64,28 @@ namespace BookStore.Controllers
 			var user = await _userService.UpdateAvatar(idUser, avatar);
 			return Ok(user);
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpGet("Like/{idUser}")]
 		public async Task<IActionResult> GetBookLiked(int idUser)
 		{
 			var bookTest = await _userService.GetBookLiked(idUser);
 			return Ok(bookTest);
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpPost("like")]
 		public async Task<IActionResult> Like(int idUser, int idBook)
 		{
 			await _userService.Like(idUser, idBook);
 			return Ok(new { success = true, meessage = "Liked" });
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpDelete("UnLike")]
 		public async Task<IActionResult> UnLike(int idUser, int idBook)
 		{
 			await _userService.UnLike(idUser, idBook);
 			return Ok(new { success = true, meessage = "UnLiked" });
 		}
-
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpGet("BooksInCart/{idUser}")]
 		public async Task<IActionResult> GetBooksInCart(int idUser)
 		{
@@ -86,6 +96,7 @@ namespace BookStore.Controllers
 				subtotal = books.Sum(b => b.SubTotal)
 			});
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpPost("AddBookIntoCart")]
 		public async Task<IActionResult> AddBookIntoCart(BookInCartFilterModel filter)
 		{
@@ -93,12 +104,14 @@ namespace BookStore.Controllers
 
 			return Ok(await _userService.AddBookIntoCart(filter));
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpDelete("DeleteBookFromCart/{id}")]
 		public async Task<IActionResult> DeleteBookIntoCart(int id)
 		{
 			await _userService.DeleteBookFromCart(new List<int>() { id });
 			return Ok(new { success = false, message = "Book was deleted!"});
 		}
+		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpPut("UpdateBookInCart/{id}")]
 		public async Task<IActionResult> UpdateBookInCart(int id, int quantity)
 		{

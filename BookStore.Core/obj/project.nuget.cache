@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jD+2kLyWfb5vs60ogWfezhwIwo9pt46bjdN1iUz4hMiktwNel/3lv12f0xyBkzA1OnwF2TCAHF56k5qydIw7mg==",
+  "dgSpecHash": "8qx8JPhhWTjA8eYHuX3oLzEBI0/WIbtMeDzz5i2m/CqIaQWIkB/aM6Ao0fBYiNWd8EftasnMoVw3IJsijEpy4Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore.Core\\BookStore.Core.csproj",
   "expectedPackageFiles": [
@@ -9,9 +9,11 @@
     "C:\\Users\\ncduc\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.3\\microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512",
+    "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.6\\microsoft.aspnetcore.authorization.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.6\\microsoft.aspnetcore.cryptography.internal.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.6\\microsoft.aspnetcore.cryptography.keyderivation.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.6\\microsoft.aspnetcore.http.features.5.0.6.nupkg.sha512",
+    "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.metadata\\5.0.6\\microsoft.aspnetcore.metadata.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",

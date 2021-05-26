@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5LxCzCyvI12Kf1J3XJFy37oz/xB5nZ1a11U4L87QGzYpykVvxAAEfdXsKDZTjjDaCtcjYxszT5PFkhSd8KUjAA==",
+  "dgSpecHash": "KzD7QphvOxXIN67UBhyuTxtCRKIVVsyGrk3AIbYNTrPYnPAH6yBvX3I667COqR0Ogks5J4LVLIkfnuGGUSLlrQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ncduc\\Desktop\\BookStore\\BookStore\\BookStore.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.3\\microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.6\\microsoft.aspnetcore.authentication.jwtbearer.5.0.6.nupkg.sha512",
+    "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.6\\microsoft.aspnetcore.authorization.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.6\\microsoft.aspnetcore.cryptography.internal.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.6\\microsoft.aspnetcore.cryptography.keyderivation.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
@@ -19,6 +20,7 @@
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.6\\microsoft.aspnetcore.http.features.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\5.0.6\\microsoft.aspnetcore.identity.entityframeworkcore.5.0.6.nupkg.sha512",
+    "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.aspnetcore.metadata\\5.0.6\\microsoft.aspnetcore.metadata.5.0.6.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\ncduc\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

@@ -72,6 +72,19 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authorization/5.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "5.0.6",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Options": "5.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/Microsoft.AspNetCore.Authorization.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.621.22305"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/5.0.6": {
         "runtime": {
           "lib/net5.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -135,6 +148,14 @@
         },
         "runtime": {
           "lib/net5.0/Microsoft.AspNetCore.Http.Features.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.621.22305"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/5.0.6": {
+        "runtime": {
+          "lib/net5.0/Microsoft.AspNetCore.Metadata.dll": {
             "assemblyVersion": "5.0.0.0",
             "fileVersion": "5.0.621.22305"
           }
@@ -289,6 +310,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1",
           "Microsoft.AspNet.Identity.EntityFramework": "2.2.3",
+          "Microsoft.AspNetCore.Authorization": "5.0.6",
           "Microsoft.AspNetCore.Http.Features": "5.0.6",
           "Microsoft.Extensions.Identity.Stores": "5.0.6"
         },
@@ -339,6 +361,13 @@
       "path": "microsoft.aspnet.identity.entityframework/2.2.3",
       "hashPath": "microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Authorization/5.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TNFB3i5mak/8XgvPjHiWdQAD7B1fsqY8NJmryV6rStJknAA0+upiJrCqK2cY7L2WMviIoxGt6SWHQmq5qmv4HQ==",
+      "path": "microsoft.aspnetcore.authorization/5.0.6",
+      "hashPath": "microsoft.aspnetcore.authorization.5.0.6.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Cryptography.Internal/5.0.6": {
       "type": "package",
       "serviceable": true,
@@ -380,6 +409,13 @@
       "sha512": "sha512-MfpLQRQK/iBZLiaRgPd4dNq4REVbycYH9apU0i18UWQsqZt2Oa0+gZRnz8j4eDCzzCwQSoVXtuCtuCdEnIk9vg==",
       "path": "microsoft.aspnetcore.http.features/5.0.6",
       "hashPath": "microsoft.aspnetcore.http.features.5.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Metadata/5.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mJbuL0obXSu+w+WprvaghSTKJhdvt2TLTFBMkzDsxecJbO8xHS+485SJoIxV37dQcMl/4tOXjGNUfjMH9seNWA==",
+      "path": "microsoft.aspnetcore.metadata/5.0.6",
+      "hashPath": "microsoft.aspnetcore.metadata.5.0.6.nupkg.sha512"
     },
     "Microsoft.CSharp/4.7.0": {
       "type": "package",

@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
 using BookStore.Application.IService;
+using BookStore.Core.Enum;
 using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.UpdateModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+	[Authorize(Roles = RoleType.Admin)]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class BookController : ControllerBase
@@ -27,6 +29,7 @@ namespace BookStore.Controllers
 			_bookService = bookService;
 			_environment = environment;
 		}
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> Get(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int? Skip, int? Offset)
 		{
@@ -37,12 +40,12 @@ namespace BookStore.Controllers
 			}
 			return Ok(await _bookService.GetAll(KeyWord, IdCategory, IdAuthor, OrderBy, (int)Skip, (int)Offset));
 		}
+		[AllowAnonymous]
 		[HttpGet("{idBook}")]
 		public async Task<IActionResult> GetDetail(int idBook)
 		{
 			return Ok(await _bookService.GetDetail(idBook));
 		}
-
 		[HttpPost]
 		public async Task<IActionResult> Add([FromForm]NewBookFilterModel filter)
 		{
