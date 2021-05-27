@@ -13,11 +13,11 @@ namespace BookStore.Core.Repository
 		Task<ListItemResponse<User>> Get();
 		Task<User> GetByUserName(string username);
 		Task<User> GetDetail(int id, DetailType type);
-		Task<User> UpdateInfoUser(UserUpdateModel filter);
+		Task<User> UpdateInfoUser(int id,UserUpdateModel filter);
 		Task<User> UpdateAvatar(int id, string avatar);
 		Task UpdatePassword(int id, string newHashPassword);
 		Task Like(int idUser, int idBook);
-		Task UnLike(int idUser, int idBook);
+		Task UnLike(int id);
 		Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter);
 		Task DeleteBookFromCart(List<int> arr);
 		Task<BooksInCart> UpdateBookInCart(int id, int quantity);

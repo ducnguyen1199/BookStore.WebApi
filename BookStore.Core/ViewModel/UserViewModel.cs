@@ -13,6 +13,6 @@ namespace BookStore.Core.ViewModel
         public DateTime BirthDay { get; set; }
         public string PhoneNumber { get; set; }
         public string Avatar { get; set; }
-        public virtual ICollection<IdentityUserRole<int>> UserRoles { get; } = new List<IdentityUserRole<int>>();
+        public IEnumerable<int> RoleIds { get; set; }
     }
 }

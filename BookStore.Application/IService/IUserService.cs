@@ -14,10 +14,10 @@ namespace BookStore.Application.IService
 	{
 		Task<ListItemResponse<UserViewModel>> Get();
 		Task<UserViewModel> GetById(int idUser);
-		Task<UserViewModel> UpdateInfoUser(UserUpdateModel filter);
+		Task<UserViewModel> UpdateInfoUser(int id, UserUpdateModel filter);
 		Task<UserViewModel> UpdateAvatar(int idUser, string avatar);
 		Task Like(int idUser, int idBook);
-		Task UnLike(int idUser, int idBook);
+		Task UnLike(int id);
 		Task<BooksInCartViewModel> AddBookIntoCart(BookInCartFilterModel filter);
 		Task DeleteBookFromCart(List<int> arr);
 		Task<ICollection<FavoriteViewModel>> GetBookLiked(int idUser);
