@@ -32,11 +32,11 @@ namespace BookStore.Database.Reponsitory
 		}
 		public async Task<User> GetByUserName(string username)
 		{
-			User user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+			User user = await _context.Users.Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.UserName == username);
 			return user != null ? user : null;
 		}
 		public async Task<User> GetDetail(int id, DetailType type) {
-			if(type == DetailType.ById) return await _context.Users.FindAsync(id);
+			if(type == DetailType.ById) return await _context.Users.Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id);
 			IQueryable<User> users = _context.Users;
 			switch (type)
 			{
@@ -57,9 +57,9 @@ namespace BookStore.Database.Reponsitory
 			}
 			return await users.FirstOrDefaultAsync(u => u.Id == id);
 		}
-		public async Task<User> UpdateInfoUser(UserUpdateModel filter)
+		public async Task<User> UpdateInfoUser(int id, UserUpdateModel filter)
 		{
-			User user = await _context.Users.FindAsync(filter.Id);
+			User user = await _context.Users.Include(u => u.UserRoles).FirstOrDefaultAsync(u => u.Id == id);
 			user.Email = filter.Email;
 			user.BirthDay = filter.BirthDay;
 			user.FullName = filter.FullName;
@@ -84,9 +84,9 @@ namespace BookStore.Database.Reponsitory
 			fb.IdUser = idUser;
 			await _context.FavoriteBooks.AddAsync(fb);
 		}
-		public async Task UnLike(int idUser, int idBook)
+		public async Task UnLike(int id)
 		{
-			FavoriteBook check = await _context.FavoriteBooks.FirstOrDefaultAsync(fb => fb.IdUser == idUser && fb.IdBook == idBook);
+			FavoriteBook check = await _context.FavoriteBooks.FindAsync(id);
 			if (check != null) _context.FavoriteBooks.Remove(check);
 		}
 		public async Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter)

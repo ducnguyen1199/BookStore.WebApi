@@ -38,9 +38,9 @@ namespace BookStore.Application.Service
 			User user = await _userReponsitory.GetDetail(idUser, DetailType.ById);
 			return _mapper.Map<UserViewModel>(user);
 		}
-		public async Task<UserViewModel> UpdateInfoUser(UserUpdateModel filter)
+		public async Task<UserViewModel> UpdateInfoUser(int id, UserUpdateModel filter)
 		{
-			User user = await _userReponsitory.UpdateInfoUser(filter);
+			User user = await _userReponsitory.UpdateInfoUser(id, filter);
 			await _userReponsitory.Commit();
 			return _mapper.Map<UserViewModel>(user);
 		}
@@ -55,9 +55,9 @@ namespace BookStore.Application.Service
 			await _userReponsitory.Like(idUser, idBook);
 			await _userReponsitory.Commit();
 		}
-		public async Task UnLike(int idUser, int idBook)
+		public async Task UnLike(int id)
 		{
-			await _userReponsitory.UnLike(idUser, idBook);
+			await _userReponsitory.UnLike(id);
 			await _userReponsitory.Commit();
 		}
 		public async Task<ICollection<FavoriteViewModel>> GetBookLiked(int idUser)

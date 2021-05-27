@@ -47,10 +47,10 @@ namespace BookStore.Controllers
 			return Ok(user);
 		}
 		[Authorize(Roles = RoleType.AdminOrCustomer)]
-		[HttpPut("UpdateInfoUser")]
-		public async Task<IActionResult> UpdateInfoUser([FromBody] UserUpdateModel filter)
+		[HttpPut("UpdateInfoUser/{idUser}")]
+		public async Task<IActionResult> UpdateInfoUser(int idUser, UserUpdateModel filter)
 		{
-			var user = await _userService.UpdateInfoUser(filter);
+			var user = await _userService.UpdateInfoUser(idUser, filter);
 			return Ok(user);
 		}
 		[Authorize(Roles = RoleType.AdminOrCustomer)]
@@ -73,16 +73,16 @@ namespace BookStore.Controllers
 		}
 		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpPost("like")]
-		public async Task<IActionResult> Like(int idUser, int idBook)
+		public async Task<IActionResult> Like(LikeFilterModel filter)
 		{
-			await _userService.Like(idUser, idBook);
+			await _userService.Like(filter.IdUser, filter.IdBook);
 			return Ok(new { success = true, meessage = "Liked" });
 		}
 		[Authorize(Roles = RoleType.AdminOrCustomer)]
-		[HttpDelete("UnLike")]
-		public async Task<IActionResult> UnLike(int idUser, int idBook)
+		[HttpDelete("UnLike/{idLiked}")]
+		public async Task<IActionResult> UnLike(int idLiked)
 		{
-			await _userService.UnLike(idUser, idBook);
+			await _userService.UnLike(idLiked);
 			return Ok(new { success = true, meessage = "UnLiked" });
 		}
 		[Authorize(Roles = RoleType.AdminOrCustomer)]
