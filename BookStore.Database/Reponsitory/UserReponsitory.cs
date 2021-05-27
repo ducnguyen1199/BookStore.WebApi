@@ -77,18 +77,20 @@ namespace BookStore.Database.Reponsitory
 			User user = await _context.Users.FindAsync(id);
 			user.PasswordHash = newPasswordHash;
 		}
-		public async Task Like(int idUser, int idBook)
+		public async Task<int> Like(int idUser, int idBook)
 		{
 			FavoriteBook fb = new FavoriteBook();
 			fb.IdBook = idBook;
 			fb.IdUser = idUser;
 			await _context.FavoriteBooks.AddAsync(fb);
+			return fb.Id;
 		}
 		public async Task UnLike(int id)
 		{
 			FavoriteBook check = await _context.FavoriteBooks.FindAsync(id);
 			if (check != null) _context.FavoriteBooks.Remove(check);
 		}
+		public async Task<FavoriteBook> GetBookLiked(int idUser,int idBook) => await _context.FavoriteBooks.Include(f => f.Book.Author).Include(f=> f.Book.Category).FirstOrDefaultAsync(f => f.IdBook ==idBook && f.IdUser == idUser);
 		public async Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter)
 		{
 			Book book = await _context.Books.FindAsync(filter.IdBook);

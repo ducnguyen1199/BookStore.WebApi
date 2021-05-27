@@ -16,8 +16,9 @@ namespace BookStore.Core.Repository
 		Task<User> UpdateInfoUser(int id,UserUpdateModel filter);
 		Task<User> UpdateAvatar(int id, string avatar);
 		Task UpdatePassword(int id, string newHashPassword);
-		Task Like(int idUser, int idBook);
+		Task<int> Like(int idUser, int idBook);
 		Task UnLike(int id);
+		Task<FavoriteBook> GetBookLiked(int idUser, int idBook);
 		Task<BooksInCart> AddBookIntoCart(BookInCartFilterModel filter);
 		Task DeleteBookFromCart(List<int> arr);
 		Task<BooksInCart> UpdateBookInCart(int id, int quantity);

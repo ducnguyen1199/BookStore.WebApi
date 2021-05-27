@@ -16,7 +16,7 @@ namespace BookStore.Application.IService
 		Task<UserViewModel> GetById(int idUser);
 		Task<UserViewModel> UpdateInfoUser(int id, UserUpdateModel filter);
 		Task<UserViewModel> UpdateAvatar(int idUser, string avatar);
-		Task Like(int idUser, int idBook);
+		Task<FavoriteViewModel> Like(int idUser, int idBook);
 		Task UnLike(int id);
 		Task<BooksInCartViewModel> AddBookIntoCart(BookInCartFilterModel filter);
 		Task DeleteBookFromCart(List<int> arr);
