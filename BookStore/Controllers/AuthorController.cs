@@ -34,6 +34,12 @@ namespace BookStore.Controllers
 		{
 			return Ok(await _authorService.Get());
 		}
+		[AllowAnonymous]
+		[HttpGet("{id}")]
+		public async Task<IActionResult> Get(int id)
+		{
+			return Ok(await _authorService.Get(id));
+		}
 		[HttpPost]
 		public async Task<IActionResult> Add([FromForm]AuthorFilterModel filter)
 		{

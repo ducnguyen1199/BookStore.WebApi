@@ -42,6 +42,11 @@ namespace BookStore.Application.Service
 				Count = authors.Count
 			};
 		}
+		public async Task<AuthorViewModel> Get(int id)
+		{
+			Author authors = await _authorReponsitory.Get(id);
+			return _mapper.Map<AuthorViewModel>(authors);
+		}
 
 		public async Task Update(int idAuthor, AuthorFilterModel filter)
 		{

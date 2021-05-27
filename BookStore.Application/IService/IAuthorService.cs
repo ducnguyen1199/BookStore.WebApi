@@ -8,6 +8,7 @@ namespace BookStore.Application.IService
 	public interface IAuthorService
 	{
 		Task<ListItemResponse<AuthorViewModel>> Get();
+		Task<AuthorViewModel> Get(int id);
 		Task<AuthorViewModel> Add(AuthorFilterModel filter);
 		Task Delete(int id);
 		Task Update(int idAuthor, AuthorFilterModel filter);
