@@ -50,10 +50,12 @@ namespace BookStore.Application.Service
 			await _userReponsitory.Commit();
 			return _mapper.Map<UserViewModel>(user);
 		}
-		public async Task Like(int idUser, int idBook)
-		{
+		public async Task<FavoriteViewModel> Like(int idUser, int idBook)
+		{	
 			await _userReponsitory.Like(idUser, idBook);
 			await _userReponsitory.Commit();
+			FavoriteBook fb = await _userReponsitory.GetBookLiked(idUser, idBook);
+			return _mapper.Map<FavoriteViewModel>(fb);
 		}
 		public async Task UnLike(int id)
 		{

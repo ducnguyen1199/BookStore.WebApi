@@ -75,8 +75,7 @@ namespace BookStore.Controllers
 		[HttpPost("like")]
 		public async Task<IActionResult> Like(LikeFilterModel filter)
 		{
-			await _userService.Like(filter.IdUser, filter.IdBook);
-			return Ok(new { success = true, meessage = "Liked" });
+			return Ok(await _userService.Like(filter.IdUser, filter.IdBook));
 		}
 		[Authorize(Roles = RoleType.AdminOrCustomer)]
 		[HttpDelete("UnLike/{idLiked}")]
