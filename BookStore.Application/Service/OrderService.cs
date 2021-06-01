@@ -29,6 +29,9 @@ namespace BookStore.Application.Service
 			Order order = new Order();
 			order.IdUser = filter.IdUser;
 			order.Address = filter.Address;
+			order.FullName = filter.FullName;
+			order.PhoneNumber = filter.PhoneNumber;
+			order.Email = filter.Email;
 			order.Discount = filter.Discount;
 			order.Surcharge = filter.Surcharge;
 			await _orderReponsitory.AddOrder(order);

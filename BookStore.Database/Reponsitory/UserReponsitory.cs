@@ -79,11 +79,14 @@ namespace BookStore.Database.Reponsitory
 		}
 		public async Task<int> Like(int idUser, int idBook)
 		{
-			FavoriteBook fb = new FavoriteBook();
-			fb.IdBook = idBook;
-			fb.IdUser = idUser;
-			await _context.FavoriteBooks.AddAsync(fb);
-			return fb.Id;
+			FavoriteBook fb = await _context.FavoriteBooks.FirstOrDefaultAsync(f => f.IdBook == idBook && f.IdUser == idUser);
+			if (fb != null) return -1;
+			FavoriteBook nfb = new FavoriteBook();
+			nfb.IdBook = idBook;
+			nfb.IdUser = idUser;
+
+			await _context.FavoriteBooks.AddAsync(nfb);
+			return nfb.Id;
 		}
 		public async Task UnLike(int id)
 		{
