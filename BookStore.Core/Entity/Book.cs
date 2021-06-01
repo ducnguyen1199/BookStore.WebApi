@@ -33,5 +33,7 @@ namespace BookStore.Core.Entity
 
 		[InverseProperty(nameof(FavoriteBook.Book))]
 		public virtual ICollection<FavoriteBook> FavoriteBooks { get; } = new List<FavoriteBook>();
+		[InverseProperty(nameof(DetailOrder.Book))]
+		public virtual ICollection<DetailOrder> DetailOrders { get; } = new List<DetailOrder>();
 	}
 }

@@ -11,6 +11,7 @@ namespace BookStore.Core.Repository
 		Task<Book> Add(Book book);
 		Task Delete(int id);
 		Task<ListItemResponse<Book>> Get(BookFilterModel data );
+		Task<ListItemResponse<Book>> GetTrending();
 		Task<Book> GetDetail(int idUser);
 		Task Update(int id, BookUpdateModel data);
 	}

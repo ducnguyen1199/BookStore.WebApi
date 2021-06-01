@@ -31,14 +31,9 @@ namespace BookStore.Controllers
 		}
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<IActionResult> Get(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int? Skip, int? Offset)
+		public async Task<IActionResult> Get([FromQuery]BookFilterModel filter)
 		{
-			if (Skip == null || Offset == null) {
-
-				Skip = -1;
-				Offset = -1;
-			}
-			return Ok(await _bookService.GetAll(KeyWord, IdCategory, IdAuthor, OrderBy, (int)Skip, (int)Offset));
+			return Ok(await _bookService.GetAll(filter));
 		}
 		[AllowAnonymous]
 		[HttpGet("{idBook}")]
@@ -46,6 +41,13 @@ namespace BookStore.Controllers
 		{
 			return Ok(await _bookService.GetDetail(idBook));
 		}
+		[AllowAnonymous]
+		[HttpGet("Trending")]
+		public async Task<IActionResult> GetTrending()
+		{
+			return Ok(await _bookService.GetTrending());
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> Add([FromForm]NewBookFilterModel filter)
 		{

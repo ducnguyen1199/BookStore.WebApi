@@ -8,7 +8,9 @@ namespace BookStore.Core.FilterModel
         public int? IdCategory { get; set; }
         public int? IdAuthor { get; set; }
         public TypeOrderBy? OrderBy { get; set; }
-        public int Skip { get; set; }
-        public int Offset { get; set; }
+        public double? MinPrice { get; set; }
+        public double? MaxPrice { get; set; }
+        public int? Skip { get; set; }
+        public int? Offset { get; set; }
     }
 }
