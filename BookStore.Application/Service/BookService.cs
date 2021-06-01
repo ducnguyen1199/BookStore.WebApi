@@ -36,17 +36,8 @@ namespace BookStore.Application.Service
 			await _bookReponsitory.Commit();
 		}
 
-		public async Task<ListItemResponse<BookViewModel>> GetAll(string KeyWord, int? IdCategory, int? IdAuthor, int? OrderBy, int Skip, int Offset)
+		public async Task<ListItemResponse<BookViewModel>> GetAll(BookFilterModel filter)
 		{
-			BookFilterModel filter = new BookFilterModel
-			{
-				KeyWord = KeyWord,
-				IdCategory = IdCategory,
-				IdAuthor = IdAuthor,
-				OrderBy = (TypeOrderBy?)OrderBy,
-				Skip = Skip,
-				Offset = Offset
-			};
 			ListItemResponse<Book> books = await _bookReponsitory.Get(filter);
 			return new ListItemResponse<BookViewModel>
 			{
@@ -58,6 +49,16 @@ namespace BookStore.Application.Service
 		{
 			Book book = await _bookReponsitory.GetDetail(id);
 			return  _mapper.Map<BookViewModel>(book);
+		}
+
+		public async Task<ListItemResponse<BookViewModel>> GetTrending()
+		{
+			ListItemResponse<Book> books = await _bookReponsitory.GetTrending();
+			return new ListItemResponse<BookViewModel>
+			{
+				Data = books.Data.Select(u => _mapper.Map<BookViewModel>(u)),
+				Count = books.Count
+			};
 		}
 
 		public async Task Update(int id, BookUpdateModel data)

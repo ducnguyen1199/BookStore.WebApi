@@ -4,7 +4,6 @@ using BookStore.Core.FilterModel;
 using BookStore.Core.Repository;
 using BookStore.Core.Shared;
 using BookStore.Core.UpdateModel;
-using BookStore.Core.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,8 +64,12 @@ namespace BookStore.Database.Reponsitory
 						break;
 				}
 			}
+			if(filter.MinPrice != null && filter.MaxPrice != null)
+			{
+				books = books.Where(b => b.Price <= filter.MaxPrice && b.Price >= filter.MinPrice);
+			}
 			
-			if(filter.Skip == -1 && filter.Offset == -1)
+			if(filter.Skip == null && filter.Offset == null)
 			{
 				return new ListItemResponse<Book>
 				{
@@ -74,12 +77,14 @@ namespace BookStore.Database.Reponsitory
 					Count = await books.CountAsync()
 				};
 			}
-			
-			return new ListItemResponse<Book>
+			else
 			{
-				Data = await books.Skip((filter.Skip - 1) * filter.Offset).Take(filter.Offset).ToListAsync(),
-				Count = await books.CountAsync()
-			};
+				return new ListItemResponse<Book>
+				{
+					Data = await books.Skip((int)((filter.Skip - 1) * filter.Offset)).Take((int)filter.Offset).ToListAsync(),
+					Count = await books.CountAsync()
+				};
+			}
 		}
 		public async Task<Book> GetDetail(int id) => await _context.Books.Include(b => b.Category).Include(b => b.Author).FirstOrDefaultAsync(b=>b.Id==id);
 		public async Task Update(int id, BookUpdateModel data)
@@ -91,6 +96,18 @@ namespace BookStore.Database.Reponsitory
 			book.Price = data.Price;
 			book.Name = data.Name;
 			book.Image = data.Image;
+		}
+
+		public async Task<ListItemResponse<Book>> GetTrending()
+		{
+			IQueryable<Book> books = _context.Books.Include(b => b.DetailOrders).Include(b=>b.Author).Include(b=>b.Category);
+			books = books.OrderByDescending(b => b.DetailOrders.Count);
+			books = books.Take(10);
+			return new ListItemResponse<Book>
+			{
+				Data = await books.ToListAsync(),
+				Count = await books.CountAsync()
+			};
 		}
 	}
 }

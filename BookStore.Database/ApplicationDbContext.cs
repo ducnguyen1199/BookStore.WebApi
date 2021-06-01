@@ -45,6 +45,11 @@ namespace BookStore.Database
 				.WithMany()
 				.HasForeignKey(b => b.IdCategory)
 				.IsRequired();
+			modelBuilder.Entity<Book>()
+				.HasMany(b => b.DetailOrders)
+				.WithOne(d => d.Book)
+				.HasForeignKey(b => b.IdBook)
+				.IsRequired();
 
 			modelBuilder.Entity<Book>()
 				.Property(b => b.DateCreated)
@@ -79,12 +84,6 @@ namespace BookStore.Database
 				.HasMany(o => o.DetailOrders)
 				.WithOne(dor => dor.Order)
 				.HasForeignKey(dor => dor.IdOrder)
-				.IsRequired();
-
-			modelBuilder.Entity<DetailOrder>()
-				.HasOne(o => o.Book)
-				.WithMany()
-				.HasForeignKey(b => b.IdBook)
 				.IsRequired();
 
 			modelBuilder.Entity<Role>()
